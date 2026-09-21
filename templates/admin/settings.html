@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>নোটিফিকেশন সেটিংস — PRIMORA KIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  {% include "admin/_admin_style.html" %}
+</head>
+<body>
+  <header class="admin-navbar">
+    <div class="admin-brand">🔔 নোটিফিকেশন সেটিংস</div>
+    <a href="{{ url_for('admin_dashboard') }}" class="admin-link-btn">← ড্যাশবোর্ডে ফিরুন</a>
+  </header>
+
+  <div class="wrap">
+    {% if msg %}<div class="msg msg-{{ msg[0] }}">{{ msg[1] }}</div>{% endif %}
+
+    <form method="POST" autocomplete="off">
+      <input type="hidden" name="csrf" value="{{ csrf }}">
+
+      <div class="card">
+        <h2>📧 Gmail
+          {% if has_pass %}<span class="pill pill-ok">চালু আছে</span>{% else %}<span class="pill pill-no">চালু নেই</span>{% endif %}
+        </h2>
+        <p class="hint">
+          নতুন অর্ডার এলে এবং কেউ ফর্ম শুরু করে ছেড়ে দিলে আপনার জিমেইলে মেইল যাবে।<br>
+          <b>App Password বানানোর নিয়ম:</b> ১) Google Account → Security → <b>2-Step Verification</b> চালু করুন।
+          ২) একই জায়গায় <b>App passwords</b> খুলে একটি পাসওয়ার্ড বানান (১৬ অক্ষর)। ৩) সেটি নিচের ঘরে বসান।
+          (সাধারণ জিমেইল পাসওয়ার্ড কাজ করবে না।)
+        </p>
+        <label>যে জিমেইল থেকে পাঠানো হবে</label>
+        <input type="email" name="mail_user" value="{{ mail_user }}" placeholder="primorakit@gmail.com">
+        <label>যে ইনবক্সে মেইল আসবে</label>
+        <input type="email" name="mail_to" value="{{ mail_to }}" placeholder="primorakit@gmail.com">
+        <label>Gmail App Password</label>
+        <input type="password" name="mail_app_password" placeholder="{% if has_pass %}•••••••••••••••• (সেভ করা আছে — বদলাতে চাইলে নতুনটি লিখুন){% else %}xxxx xxxx xxxx xxxx{% endif %}">
+        {% if has_pass %}<label class="check"><input type="checkbox" name="clear_mail_password" value="1"> সেভ করা App Password মুছে ফেলুন</label>{% endif %}
+      </div>
+
+      <div class="card">
+        <h2>✈️ Telegram
+          {% if has_token and chat %}<span class="pill pill-ok">চালু আছে</span>{% else %}<span class="pill pill-no">চালু নেই</span>{% endif %}
+        </h2>
+        <p class="hint">
+          <b>ফোন নম্বর দিয়ে Telegram-এ মেসেজ পাঠানো যায় না</b> — তাই একটি বট লাগে। এক্ষেত্রে ১) Telegram-এ <b>@BotFather</b> খুলে <b>/newbot</b> লিখে বট বানান, সে আপনাকে একটি <b>Token</b> দেবে।
+          ২) আপনার নতুন বটটি খুলে <b>Start</b> চাপুন। ৩) এখানে Token বসিয়ে <b>"Chat ID খুঁজুন"</b> চাপুন — আপনার Chat ID পেয়ে যাবেন।
+          ৪) সেভ করে টেস্ট করুন।
+        </p>
+        <label>Bot Token</label>
+        <input type="password" name="telegram_bot_token" id="tg_token" placeholder="{% if has_token %}•••••••••••••••• (সেভ করা আছে — বদলাতে চাইলে নতুনটি লিখুন){% else %}123456789:AAExxxxxxxxxxxxxxxxxxxxxxxx{% endif %}">
+        {% if has_token %}<label class="check"><input type="checkbox" name="clear_telegram_token" value="1"> সেভ করা Token মুছে ফেলুন</label>{% endif %}
+        <label>Chat ID</label>
+        <div class="row">
+          <input type="text" name="telegram_chat_id" id="tg_chat" value="{{ chat }}" placeholder="যেমন 7976148479">
+          <button type="button" class="btn btn-light" onclick="findChat(this)">🔍 Chat ID খুঁজুন</button>
+        </div>
+        <div class="chatbox" id="chatbox"></div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button type="submit" class="btn btn-gold">💾 সেভ করুন</button>
+        <button type="button" class="btn btn-violet" onclick="sendTestNotify(this)">🔔 টেস্ট নোটিফিকেশন (সেভ করার পর)</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+    async function findChat(btn) {
+      const box = document.getElementById('chatbox');
+      const old = btn.textContent;
+      btn.disabled = true; btn.textContent = '⏳ খোঁজা হচ্ছে...';
+      box.innerHTML = '';
+      try {
+        const res = await fetch('/admin/api/telegram-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'fetch' },
+          body: JSON.stringify({ token: document.getElementById('tg_token').value.trim() })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          box.innerHTML = data.chats.map(c =>
+            '<div class="chatitem"><span>' + esc(c.name || '(নাম নেই)') + ' — <b>' + esc(c.id) + '</b> <small>(' + esc(c.type) + ')</small></span>' +
+            '<button type="button" class="btn btn-light" style="padding:6px 12px" data-id="' + esc(c.id) + '" onclick="useChat(this)">এটি ব্যবহার করুন</button></div>'
+          ).join('');
+        } else {
+          box.innerHTML = '<div class="msg msg-err" style="margin-top:10px">' + esc(data.message) + '</div>';
+        }
+      } catch (e) {
+        box.innerHTML = '<div class="msg msg-err" style="margin-top:10px">সার্ভারে সমস্যা, আবার চেষ্টা করুন।</div>';
+      }
+      btn.disabled = false; btn.textContent = old;
+    }
+    function useChat(btn) { document.getElementById('tg_chat').value = btn.getAttribute('data-id'); }
+
+    async function sendTestNotify(btn) {
+      const old = btn.textContent;
+      btn.disabled = true; btn.textContent = '⏳ পাঠানো হচ্ছে...';
+      try {
+        const res = await fetch('/admin/api/test-notify', { method: 'POST', headers: { 'X-Requested-With': 'fetch' } });
+        const data = await res.json();
+        alert(data.message);
+      } catch (e) { alert('সার্ভার এরর, পুনরায় চেষ্টা করুন।'); }
+      btn.disabled = false; btn.textContent = old;
+    }
+  </script>
+</body>
+</html>

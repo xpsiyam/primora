@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>অ্যাডমিন লগইন — PRIMORA KIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; margin: 0; padding: 0; }
+    body { background: #091A2F; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+    .login-card { background: #FFFFFF; border-radius: 16px; padding: 35px 30px; width: 100%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+    .login-title { font-size: 22px; font-weight: 800; color: #0F294A; text-align: center; margin-bottom: 4px; }
+    .login-subtitle { font-size: 13px; color: #64748B; text-align: center; margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #1E293B; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #CBD5E1; font-size: 14px; outline: none; }
+    .form-group input:focus { border-color: #F5A623; box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.2); }
+    .login-btn { width: 100%; background: #F5A623; color: #091A2F; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s; }
+    .login-btn:hover { background: #E09214; }
+    .error-box { background: #FEE2E2; color: #991B1B; padding: 10px; border-radius: 6px; font-size: 13px; margin-bottom: 16px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div style="text-align: center; margin-bottom: 12px;">
+      <span style="font-size: 32px;">🔐</span>
+    </div>
+    <h1 class="login-title">PRIMORA KIT অ্যাডমিন</h1>
+    <p class="login-subtitle">অর্ডার ও সেলস ম্যানেজমেন্ট প্যানেল</p>
+
+    {% if error %}
+      <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      <div class="form-group">
+        <label>ইউজারনেম</label>
+        <input type="text" name="username" required placeholder="ইউজারনেম" autocomplete="username" autocapitalize="none" autofocus>
+      </div>
+
+      <div class="form-group">
+        <label>পাসওয়ার্ড</label>
+        <input type="password" name="password" required placeholder="••••••••" autocomplete="current-password">
+      </div>
+
+      <button type="submit" class="login-btn">লগইন করুন</button>
+    </form>
+    
+    <div style="text-align: center; margin-top: 16px;">
+      <a href="/" style="font-size: 12px; color: #64748B; text-decoration: none;">← ওয়েবসাইটে ফিরে যান</a>
+    </div>
+  </div>
+
+</body>
+</html>

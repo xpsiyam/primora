@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}অর্ডার ট্র্যাকিং — PRIMORA KIT{% endblock %}
+
+{% block content %}
+<div style="max-width: 700px; margin: 40px auto; padding: 0 16px;">
+  <div style="background: #FFFFFF; border-radius: 20px; padding: clamp(16px, 4vw, 30px); box-shadow: 0 8px 30px rgba(15, 41, 74, 0.08); border: 1px solid #E2E8F0;">
+    
+    <div style="text-align: center; margin-bottom: 24px;">
+      <span class="section-pill" data-bn="🔍 লাইভ পার্সেল ট্র্যাকিং" data-en="🔍 Live Parcel Tracking">🔍 লাইভ পার্সেল ট্র্যাকিং</span>
+      <h1 style="font-size: 24px; font-weight: 800; color: #0F294A; margin-top: 6px;" data-bn="আপনার অর্ডারের বর্তমান অবস্থা জানুন" data-en="Check your order status">
+        আপনার অর্ডারের বর্তমান অবস্থা জানুন
+      </h1>
+      <p style="font-size: 13px; color: #64748B;" data-bn="অর্ডার নম্বর (যেমন: PK-20260919-XXXX) অথবা ১১ ডিজিটের মোবাইল নম্বর লিখুন।" data-en="Enter your order number (e.g. PK-20260919-XXXX) or your 11-digit mobile number.">
+        অর্ডার নম্বর (যেমন: PK-20260919-XXXX) অথবা ১১ ডিজিটের মোবাইল নম্বর লিখুন।
+      </p>
+    </div>
+
+    <!-- Search Form -->
+    <form onsubmit="searchTracking(event)" style="display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;">
+      <input type="text" id="track_input" required placeholder="মোবাইল নম্বর বা অর্ডার আইডি..." data-bn-placeholder="মোবাইল নম্বর বা অর্ডার আইডি..." data-en-placeholder="Mobile number or order ID..." style="flex: 1 1 200px; min-width: 0; padding: 12px 16px; border-radius: 10px; border: 2px solid #E2E8F0; font-size: 14px; outline: none;">
+      <button type="submit" id="track_btn" style="background: #0F294A; color: #FFF; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;">
+        <span id="track_btn_label" data-bn="ট্র্যাক করুন" data-en="Track">ট্র্যাক করুন</span>
+      </button>
+    </form>
+
+    <!-- Tracking Result Container -->
+    <div id="track_result"></div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const t = (bn, en) => (document.documentElement.getAttribute("data-lang") === "en" ? en : bn);
+  function esc(v) {
+    return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+  let lastResult = null;   // what is on screen right now: {orders} or {error: "..."}
+
+  function paymentLabel(p) { return String(p || "").toUpperCase(); }
+
+  function renderResult() {
+    const container = document.getElementById("track_result");
+    if (!lastResult) { container.innerHTML = ""; return; }
+
+    if (lastResult.orders && lastResult.orders.length) {
+      const statuses = ["Pending", "Confirmed", "Processing", "Shipped", "Delivered"];
+      const labels = {
+        "Pending": t("অর্ডার গৃহীত", "Order received"),
+        "Confirmed": t("কনফার্মড", "Confirmed"),
+        "Processing": t("প্যাকিং", "Packing"),
+        "Shipped": t("ডেলিভারিতে", "On the way"),
+        "Delivered": t("সম্পন্ন", "Delivered")
+      };
+      const statusText = { "Cancelled": t("বাতিল", "Cancelled") };
+      let html = "";
+      lastResult.orders.forEach(o => {
+        const currentIdx = statuses.indexOf(o.status);
+        let timelineHtml = `
+          <div style="display: flex; justify-content: space-between; position: relative; margin: 25px 0 20px;">
+            <div style="position: absolute; top: 14px; left: 10%; right: 10%; height: 4px; background: #E2E8F0; z-index: 1;"></div>
+            <div style="position: absolute; top: 14px; left: 10%; width: ${Math.max(0, currentIdx) * 20}%; height: 4px; background: #10B981; z-index: 2; transition: width 0.3s;"></div>
+        `;
+        statuses.forEach((st, idx) => {
+          const isCompleted = idx <= currentIdx;
+          timelineHtml += `
+            <div style="position: relative; z-index: 3; text-align: center; flex: 1;">
+              <div style="width: 30px; height: 30px; border-radius: 50%; background: ${isCompleted ? '#10B981' : '#CBD5E1'}; color: #FFF; font-weight: bold; font-size: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                ${isCompleted ? '✓' : (idx + 1)}
+              </div>
+              <div style="font-size: 11px; margin-top: 6px; font-weight: ${isCompleted ? 'bold' : 'normal'}; color: ${isCompleted ? '#0F294A' : '#94A3B8'};">
+                ${labels[st]}
+              </div>
+            </div>
+          `;
+        });
+        timelineHtml += `</div>`;
+
+        const en = document.documentElement.getAttribute("data-lang") === "en";
+        const itemsText = o.items.map(i => esc(en ? (i.item_name_en || i.item_name) : i.item_name) + ' (' + esc(i.quantity) + t('টি', ' pcs') + ')').join(', ');
+
+        html += `
+          <div style="border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px; margin-bottom: 20px; background: #F8FAFC;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; border-bottom: 1px dashed #CBD5E1; padding-bottom: 12px; margin-bottom: 12px;">
+              <div>
+                <div style="font-size: 16px; font-weight: 800; color: #0F294A;">${t("অর্ডার:", "Order:")} ${esc(o.order_number)}</div>
+                <div style="font-size: 12px; color: #64748B;">${t("তারিখ:", "Date:")} ${esc(o.created_at)}</div>
+              </div>
+              <div style="background: ${o.status === 'Cancelled' ? '#EF4444' : '#10B981'}; color: #FFF; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800;">
+                ${esc(statusText[o.status] || labels[o.status] || o.status)}
+              </div>
+            </div>
+
+            ${o.status === 'Cancelled' ? '' : timelineHtml}
+
+            <div style="background: #FFF; border-radius: 8px; padding: 12px; font-size: 13px; margin-top: 15px; border: 1px solid #E2E8F0;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px; gap:8px;">
+                <span style="color:#64748B;">${t("গ্রাহক:", "Customer:")}</span>
+                <strong>${esc(o.customer_name)} (${esc(o.masked_phone)})</strong>
+              </div>
+              ${o.campus_details ? `
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px; gap:8px;">
+                  <span style="color:#64748B;">${t("ক্যাম্পাস/লোকাল এলাকা:", "Campus / local area:")}</span>
+                  <strong style="color:#047857;">${esc(o.campus_details)}</strong>
+                </div>
+              ` : ''}
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px; gap:8px;">
+                <span style="color:#64748B;">${t("মোট প্রদেয়:", "Total payable:")}</span>
+                <strong>৳${Math.round(o.total_amount)} (${esc(paymentLabel(o.payment_method))})</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-top:6px; padding-top:6px; border-top:1px dashed #CBD5E1; gap:8px;">
+                <span style="color:#64748B;">${t("আইটেম:", "Items:")}</span>
+                <span style="text-align:right;">${itemsText}</span>
+              </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 12px;">
+              <a href="/order/${encodeURIComponent(o.order_number)}/invoice" target="_blank" style="font-size: 12px; color: #0F294A; font-weight: bold; text-decoration: underline;">
+                ${t("🖨️ চালান মেমো ডাউনলোড করুন", "🖨️ Download invoice / memo")}
+              </a>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    } else {
+      const msg = lastResult.server
+        ? t("সার্ভারে সমস্যা দেখা দিয়েছে। কিছুক্ষণ পর চেষ্টা করুন।", "Something went wrong on the server. Please try again in a moment.")
+        : t("⚠️ দুঃখিত! প্রদত্ত তথ্যে কোনো অর্ডার পাওয়া যায়নি। সঠিক মোবাইল নম্বর বা অর্ডার নম্বর দিয়ে আবার চেষ্টা করুন।",
+            "⚠️ Sorry! No order was found for this information. Please try again with the correct mobile number or order number.");
+      container.innerHTML = `
+        <div style="background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; padding: 14px; border-radius: 10px; text-align: center; font-size: 13px;">
+          ${msg}
+        </div>`;
+    }
+  }
+
+  async function searchTracking(e) {
+    e.preventDefault();
+    const query = document.getElementById("track_input").value.trim();
+    const btn = document.getElementById("track_btn");
+    const label = document.getElementById("track_btn_label");
+    btn.disabled = true;
+    label.textContent = t("খোঁজা হচ্ছে...", "Searching...");
+    document.getElementById("track_result").innerHTML = "";
+    try {
+      const res = await fetch(`/api/track?query=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      lastResult = (data.status === "success" && data.orders.length > 0) ? { orders: data.orders } : { error: true };
+    } catch (err) {
+      lastResult = { error: true, server: true };
+    } finally {
+      btn.disabled = false;
+      label.textContent = t("ট্র্যাক করুন", "Track");
+      renderResult();
+    }
+  }
+
+  // re-draw the result in the other language when the visitor switches BN / EN
+  window.onLanguageChanged = function () { renderResult(); };
+</script>
+{% endblock %}

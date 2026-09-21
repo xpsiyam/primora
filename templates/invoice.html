@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice / চালান রসিদ - {{ order.order_number }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Hind Siliguri', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #F1F5F9;
+      padding: 30px 15px;
+      color: #1E293B;
+    }
+    .invoice-card {
+      max-width: 650px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      padding: clamp(14px, 4vw, 30px);
+      border-radius: 12px;
+      border: 1px solid #CBD5E1;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 2px solid #0F294A;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .brand-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0F294A;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      color: #F5A623;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .invoice-meta {
+      text-align: right;
+      font-size: 13px;
+      color: #64748B;
+    }
+    .customer-info-box {
+      background: #F8FAFC;
+      border-left: 4px solid #0F294A;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 13px;
+    }
+    th {
+      background: #F8FAFC;
+      color: #0F294A;
+      font-weight: 700;
+    }
+    .text-right {
+      text-align: right;
+    }
+    .total-row {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0F294A;
+      border-top: 2px solid #0F294A;
+    }
+    .footer-note {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px dashed #CBD5E1;
+      font-size: 12px;
+      color: #64748B;
+    }
+    .print-bar {
+      max-width: 650px;
+      margin: 0 auto 15px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .print-btn {
+      background: #0F294A;
+      color: #FFF;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    @media (max-width: 520px) {
+      th, td { padding: 8px 6px; font-size: 12px; }
+      .invoice-meta { text-align: left; }
+    }
+    @media print {
+      body {
+        background: #FFF;
+        padding: 0;
+      }
+      .print-bar {
+        display: none;
+      }
+      .invoice-card {
+        border: none;
+        box-shadow: none;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <button class="print-btn" onclick="window.print()"><span data-bn="🖨️ প্রিন্ট করুন" data-en="🖨️ Print">🖨️ প্রিন্ট করুন</span></button>
+  </div>
+
+  <div class="invoice-card">
+    <div class="invoice-header">
+      <div>
+        <div class="brand-title">PRIMORA KIT</div>
+        <div class="brand-subtitle">Pay Less. Get Premium.</div>
+        <div style="font-size: 12px; color: #64748B; margin-top: 4px;"><span data-bn="হেল্পলাইন:" data-en="Helpline:">হেল্পলাইন:</span> {{ settings.support_phone or '01843010908' }}</div>
+      </div>
+      <div class="invoice-meta">
+        <div><strong><span data-bn="অর্ডার মেমো" data-en="Order Memo">অর্ডার মেমো</span></strong></div>
+        <div><span data-bn="নং:" data-en="No:">নং:</span> <strong style="color:#0F294A;">{{ order.order_number }}</strong></div>
+        <div><span data-bn="তারিখ:" data-en="Date:">তারিখ:</span> {{ order.created_at|bd_time }}</div>
+        <div><span data-bn="স্ট্যাটাস:" data-en="Status:">স্ট্যাটাস:</span> <strong style="color:#10B981;">{{ order.status }}</strong></div>
+      </div>
+    </div>
+
+    <div class="customer-info-box">
+      <strong><span data-bn="প্রাপকের তথ্য:" data-en="Customer details:">প্রাপকের তথ্য:</span></strong><br>
+      <span data-bn="নাম:" data-en="Name:">নাম:</span> <strong>{{ order.customer_name }}</strong><br>
+      <span data-bn="মোবাইল:" data-en="Mobile:">মোবাইল:</span> <strong>{{ order.phone }}</strong> {% if order.alternative_phone %}(<span data-bn="বিকল্প:" data-en="Alt:">বিকল্প:</span> {{ order.alternative_phone }}){% endif %}<br>
+      <span data-bn="ঠিকানা:" data-en="Address:">ঠিকানা:</span> {{ order.address }}{% if order.district %}, {{ order.district }}{% endif %}<br>
+      {% if order.campus_details %}
+        <span data-bn="ক্যাম্পাস/লোকাল এলাকা:" data-en="Campus / local area:">ক্যাম্পাস/লোকাল এলাকা:</span> <strong style="color:#047857;">{{ order.campus_details }}</strong><br>
+      {% endif %}
+      <span data-bn="পেমেন্ট পদ্ধতি:" data-en="Payment method:">পেমেন্ট পদ্ধতি:</span> <strong>{{ order.payment_method | upper }}</strong> 
+      {% if order.trx_id %}(TrxID: {{ order.trx_id }}){% endif %}
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><span data-bn="আইটেম বিবরণ" data-en="Item">আইটেম বিবরণ</span></th>
+          <th class="text-right"><span data-bn="পরিমাণ" data-en="Qty">পরিমাণ</span></th>
+          <th class="text-right"><span data-bn="দর" data-en="Rate">দর</span></th>
+          <th class="text-right"><span data-bn="মোট" data-en="Total">মোট</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td><span data-bn="{{ item.item_name }}" data-en="{{ en_item(item.item_name) }}">{{ item.item_name }}</span></td>
+          <td class="text-right">{{ item.quantity }}</td>
+          <td class="text-right">৳{{ "%.0f"|format(item.unit_price) }}</td>
+          <td class="text-right">৳{{ "%.0f"|format(item.subtotal) }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="3" class="text-right"><span data-bn="আইটেম সাবটোটাল:" data-en="Items subtotal:">আইটেম সাবটোটাল:</span></td>
+          <td class="text-right">৳{{ "%.0f"|format(order.subtotal) }}</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right"><span data-bn="ডেলিভারি চার্জ:" data-en="Delivery charge:">ডেলিভারি চার্জ:</span></td>
+          <td class="text-right">
+            {% if order.delivery_fee == 0 %}
+              <span style="color:#10B981; font-weight:700;" data-bn="৳০ (ফ্রি ডেলিভারি)" data-en="৳0 (Free delivery)">৳০ (ফ্রি ডেলিভারি)</span>
+            {% else %}
+              ৳{{ "%.0f"|format(order.delivery_fee) }}
+            {% endif %}
+          </td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3" class="text-right"><span data-bn="সর্বমোট প্রদেয়:" data-en="Total payable:">সর্বমোট প্রদেয়:</span></td>
+          <td class="text-right">৳{{ "%.0f"|format(order.total_amount) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-note">
+      <p data-bn="পণ্য গ্রহণের সময় ডেলিভারি ম্যানের সামনে পার্সেলটি চেক করে নিন।" data-en="Please check the parcel in front of the delivery man when you receive it.">পণ্য গ্রহণের সময় ডেলিভারি ম্যানের সামনে পার্সেলটি চেক করে নিন।</p>
+      <p style="margin-top: 4px;" data-bn="প্রিমোরা কিট নির্বাচন করার জন্য আপনাকে ধন্যবাদ!" data-en="Thank you for choosing PRIMORA KIT!">প্রিমোরা কিট নির্বাচন করার জন্য আপনাকে ধন্যবাদ!</p>
+    </div>
+  </div>
+
+  <script>
+    // same language the customer chose on the website (BN / EN)
+    (function () {
+      var lang = "bn";
+      try { lang = localStorage.getItem("primora_lang") || "bn"; } catch (e) {}
+      document.documentElement.setAttribute("lang", lang === "en" ? "en" : "bn");
+      if (lang !== "en") return;
+      document.querySelectorAll("[data-en]").forEach(function (el) { el.innerHTML = el.getAttribute("data-en"); });
+      var map = { "০":"0","১":"1","২":"2","৩":"3","৪":"4","৫":"5","৬":"6","৭":"7","৮":"8","৯":"9" };
+      var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
+      while ((n = w.nextNode())) {
+        if (n.parentNode && /^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName)) continue;
+        n.nodeValue = n.nodeValue.replace(/[০-৯]/g, function (d) { return map[d]; });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- ==================== 1. HERO SHOWCASE (2/3 SLIDER + 1/3 DUAL CARDS) ==================== -->
+<section class="hero-layout-section">
+  <div class="hero-grid-wrapper">
+    <!-- Left 2/3: Dynamic Auto-Slider -->
+    <div class="hero-slider-container" id="heroSlider">
+      <!-- Slide 1: Combo Discounts -->
+      <div class="hero-slide active" data-slide="0">
+        <span class="slide-badge" data-bn="🔥 স্পেশাল স্টুডেন্ট অফার" data-en="🔥 Special Student Offer">
+          🔥 স্পেশাল স্টুডেন্ট অফার
+        </span>
+        <h1 class="slide-title">
+          <span data-bn="কম দামে বেশি পণ্য — " data-en="Pay Less, Get More — ">কম দামে বেশি পণ্য — </span>
+          <span class="gold" data-bn="সাশ্রয় হোক প্রতিটি কেনাকাটায়!" data-en="Premium Savings on Every Kit!">সাশ্রয় হোক প্রতিটি কেনাকাটায়!</span>
+        </h1>
+        <p class="slide-description" data-bn="আমাদের প্রতিটি পণ্য স্ট্যান্ডার্ড বাজারদরের চেয়েও কম দামে নির্ধারিত। আলাদা কিনলে ১৮০৳ থেকে ২৪০৳ খরচ, যা কম্বোতে পাচ্ছেন মাত্র ১০০৳ ও ১৩০৳-তে!" data-en="Every item is priced lower than standard market rates. Buying individually costs 180৳ to 240৳, now available in premium combos for only 100৳ & 130৳!">
+          আমাদের প্রতিটি পণ্য স্ট্যান্ডার্ড বাজারদরের চেয়েও কম দামে নির্ধারিত। আলাদা কিনলে ১৮০৳ থেকে ২৪০৳ খরচ, যা কম্বোতে পাচ্ছেন মাত্র ১০০৳ ও ১৩০৳-তে!
+        </p>
+        <div class="slide-features-row">
+          <span class="slide-feature-pill">✓ <span data-bn="বাজারদরের চেয়ে কম দাম" data-en="Lower Than Market Rate">বাজারদরের চেয়ে কম দাম</span></span>
+          <span class="slide-feature-pill">✓ <span data-bn="৪৫%+ অতিরিক্ত সাশ্রয়" data-en="45%+ Extra Savings">৪৫%+ অতিরিক্ত সাশ্রয়</span></span>
+          <span class="slide-feature-pill">✓ <span data-bn="ক্যাশ অন ডেলিভারি" data-en="Cash On Delivery">ক্যাশ অন ডেলিভারি</span></span>
+        </div>
+        <a href="#combos-section" class="slide-cta-btn">
+          <span>🛒</span>
+          <span data-bn="এখনই অর্ডার করুন" data-en="Order Now">এখনই অর্ডার করুন</span>
+        </a>
+      </div>
+
+      <!-- Slide 2: Kushtia & IU Free Delivery -->
+      <div class="hero-slide" data-slide="1">
+        <span class="slide-badge" style="background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #10B981;" data-bn="🎓 ইবি ও কুষ্টিয়া স্পেশাল" data-en="🎓 IU & Kushtia Special">
+          🎓 ইবি ও কুষ্টিয়া স্পেশাল
+        </span>
+        <h2 class="slide-title">
+          <span data-bn="কুষ্টিয়া শহর ও ইবি (IU) ক্যাম্পাসে " data-en="Kushtia City & Islamic University (IU) ">কুষ্টিয়া শহর ও ইবি (IU) ক্যাম্পাসে </span>
+          <span class="gold" data-bn="১০০% ফ্রি ডেলিভারি (৳০)!" data-en="100% Free Delivery (৳0)!">১০০% ফ্রি ডেলিভারি (৳০)!</span>
+        </h2>
+        <p class="slide-description" data-bn="ইসলামী বিশ্ববিদ্যালয়ের যেকোনো হল, ডিপার্টমেন্ট, মেস কিংবা কুষ্টিয়া শহরের ঠিকানায় ডেলিভারি চার্জ সম্পূর্ণ ফ্রি। পণ্য হাতে পেয়ে দেখে টাকা পরিশোধ করুন।" data-en="Completely zero delivery charge across all IU halls, departments, student messes, and Kushtia city. Inspect parcel before payment.">
+          ইসলামী বিশ্ববিদ্যালয়ের যেকোনো হল, ডিপার্টমেন্ট, মেস কিংবা কুষ্টিয়া শহরের ঠিকানায় ডেলিভারি চার্জ সম্পূর্ণ ফ্রি। পণ্য হাতে পেয়ে দেখে টাকা পরিশোধ করুন।
+        </p>
+        <div class="slide-features-row">
+          <span class="slide-feature-pill">✓ <span data-bn="ডেলিভারি ফি ৳০" data-en="Delivery Fee ৳0">ডেলিভারি ফি ৳০</span></span>
+          <span class="slide-feature-pill">✓ <span data-bn="ক্যাম্পাস হলে সরাসরি ডেলিভারি" data-en="Direct Campus Delivery">ক্যাম্পাস হলে সরাসরি ডেলিভারি</span></span>
+          <span class="slide-feature-pill">✓ <span data-bn="১-ট্যাপে অর্ডার" data-en="1-Tap Ordering">১-ট্যাপে অর্ডার</span></span>
+        </div>
+        <a href="#kushtia-iu-section" class="slide-cta-btn" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFF;">
+          <span>⚡</span>
+          <span data-bn="ফ্রি ডেলিভারি নিন" data-en="Claim Free Delivery">ফ্রি ডেলিভারি নিন</span>
+        </a>
+      </div>
+
+      <!-- Slide 3: Trust & Quality -->
+      <div class="hero-slide" data-slide="2">
+        <span class="slide-badge" style="background: rgba(0, 210, 255, 0.2); border-color: #00D2FF; color: #00D2FF;" data-bn="🛡️ শতভাগ মানসম্মত ও সুরক্ষিত" data-en="🛡️ 100% Verified Quality">
+          🛡️ শতভাগ মানসম্মত ও সুরক্ষিত
+        </span>
+        <h2 class="slide-title">
+          <span data-bn="পার্সেল খুলে চেক করে " data-en="Inspect Parcel Before Payment, ">পার্সেল খুলে চেক করে </span>
+          <span class="gold" data-bn="পেমেন্ট করার সুবিধা!" data-en="Guaranteed Satisfaction!">পেমেন্ট করার সুবিধা!</span>
+        </h2>
+        <p class="slide-description" data-bn="আমরা কোনো মধ্যস্বত্বভোগী নই। সরাসরি আমদানিকৃত ও প্রিমিয়াম ব্র্যান্ডের প্রতিটি সামগ্রী নিখুঁতভাবে চেক করে আপনার ঠিকানায় পাঠানো হয়।" data-en="Direct from trusted stationery sources. Every item is verified for smooth writing, high durability, and exam-readiness.">
+          আমরা কোনো মধ্যস্বত্বভোগী নই। সরাসরি আমদানিকৃত ও প্রিমিয়াম ব্র্যান্ডের প্রতিটি সামগ্রী নিখুঁতভাবে চেক করে আপনার ঠিকানায় পাঠানো হয়।
+        </p>
+        <div class="slide-features-row">
+          <span class="slide-feature-pill">✓ <span data-bn="নিরাপদ প্যাকেজিং" data-en="Safe Packaging">নিরাপদ প্যাকেজিং</span></span>
+          <span class="slide-feature-pill">✓ <span data-bn="দ্রুত কুরিয়ার ডেলিভারি" data-en="Fast Courier Delivery">দ্রুত কুরিয়ার ডেলিভারি</span></span>
+          <span class="slide-feature-pill">✓ <span data-bn="সরাসরি সাপোর্ট" data-en="Direct Support">সরাসরি সাপোর্ট</span></span>
+        </div>
+        <a href="#combos-section" class="slide-cta-btn">
+          <span>📦</span>
+          <span data-bn="কম্বো প্যাকেজ দেখুন" data-en="View Combo Packages">কম্বো প্যাকেজ দেখুন</span>
+        </a>
+      </div>
+
+      <!-- Indicators -->
+      <div class="slider-dots-row">
+        <span class="slider-dot active" onclick="gotoHeroSlide(0)"></span>
+        <span class="slider-dot" onclick="gotoHeroSlide(1)"></span>
+        <span class="slider-dot" onclick="gotoHeroSlide(2)"></span>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <div class="slider-arrows-wrap">
+        <button type="button" class="slider-nav-btn" onclick="prevHeroSlide()">◀</button>
+        <button type="button" class="slider-nav-btn" onclick="nextHeroSlide()">▶</button>
+      </div>
+    </div>
+
+    <!-- Right 1/3: Dual Stacked Offer Cards -->
+    <div class="hero-side-offers">
+      <!-- Offer Card 1: Exam Kit Combo -->
+      <div class="hero-offer-card">
+        <span class="side-card-tag tag-hot" data-bn="৪৪% সাশ্রয়" data-en="44% OFF">৪৪% সাশ্রয়</span>
+        <div>
+          <div style="font-size: 11px; color: #E11D48; font-weight: 800; text-transform: uppercase;">
+            🏷️ <span data-bn="অফার ১: পরীক্ষার কম্বো" data-en="Offer 1: Exam Combo">অফার ১: পরীক্ষার কম্বো</span>
+          </div>
+          <h3 class="side-card-title" data-bn="এক্সাম কিট কম্বো (৮টি পণ্য)" data-en="Exam Kit Combo (8 items)">
+            এক্সাম কিট কম্বো (৮টি পণ্য)
+          </h3>
+          <p class="side-card-desc" data-bn="ওজি বটম ফাইল, পাইলট রাবার স্কেল, ২বি পেন্সিল, ২টি ফ্রেশ শাইন পেন, ইরেজার ও শার্পনার।" data-en="Oaji exam file, rubber scale, 2B pencil, 2 Fresh Shine pens, erasers & sharpener.">
+            ওজি বটম ফাইল, পাইলট রাবার স্কেল, ২বি পেন্সিল, ২টি ফ্রেশ শাইন পেন, ইরেজার ও শার্পনার।
+          </p>
+        </div>
+
+        <div>
+          <div class="side-card-pricing">
+            <span class="side-price-now">৳১০০</span>
+            <span class="side-price-old">৳১৮০</span>
+            <span class="side-save-badge" data-bn="সাশ্রয়ী" data-en="Save 44%">সাশ্রয়ী</span>
+          </div>
+          <button type="button" class="side-card-btn" onclick="addToCart('{{ combos[0].id if combos|length > 0 else 1 }}', this)">
+            <span data-bn="কার্টে যোগ করুন ({{ (combos[0].price if combos|length > 0 else 100)|bn_money }})" data-en="Add to Cart (৳{{ '%.0f'|format(combos[0].price if combos|length > 0 else 100) }})">কার্টে যোগ করুন ({{ (combos[0].price if combos|length > 0 else 100)|bn_money }})</span> 🛒
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 2: Extra Combo -->
+      <div class="hero-offer-card featured-side">
+        <span class="side-card-tag tag-popular" data-bn="৪৫%+ অতিরিক্ত সাশ্রয়" data-en="45%+ Extra Save">৪৫%+ অতিরিক্ত সাশ্রয়</span>
+        <div>
+          <div style="font-size: 11px; color: #10B981; font-weight: 800; text-transform: uppercase;">
+            🔥 <span data-bn="অফার ২: মেগা কম্বো" data-en="Offer 2: Mega Combo">অফার ২: মেগা কম্বো</span>
+          </div>
+          <h3 class="side-card-title" data-bn="এক্সট্রা কম্বো (১১টি পণ্য)" data-en="Extra Combo (11 items)">
+            এক্সট্রা কম্বো (১১টি পণ্য)
+          </h3>
+          <p class="side-card-desc" data-bn="৮টি আইটেমের সাথে আরও ৩টি ফ্রেশ শাইন পেন, নেট পেন্সিল ফাইল, ১নং স্কেল ও কালার পেন্সিল!" data-en="Includes 8 items plus 3 Fresh Shine pens, net file, plastic scale & color pencil!">
+            ৮টি আইটেমের সাথে আরও ৩টি ফ্রেশ শাইন পেন, নেট পেন্সিল ফাইল, ১নং স্কেল ও কালার পেন্সিল!
+          </p>
+        </div>
+
+        <div>
+          <div class="side-card-pricing">
+            <span class="side-price-now">৳১৩০</span>
+            <span class="side-price-old">৳২৪০</span>
+            <span class="side-save-badge" data-bn="বেস্ট সেলার" data-en="Best Seller">বেস্ট সেলার</span>
+          </div>
+          <button type="button" class="side-card-btn" onclick="addToCart('{{ combos[1].id if combos|length > 1 else 2 }}', this)">
+            <span data-bn="কার্টে যোগ করুন ({{ (combos[1].price if combos|length > 1 else 130)|bn_money }})" data-en="Add to Cart (৳{{ '%.0f'|format(combos[1].price if combos|length > 1 else 130) }})">কার্টে যোগ করুন ({{ (combos[1].price if combos|length > 1 else 130)|bn_money }})</span> 🛒
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. KUSHTIA & ISLAMIC UNIVERSITY (IU) SPECIAL ==================== -->
+<section class="kushtia-iu-portrait" id="kushtia-iu-section">
+  <div class="portrait-card">
+    <div class="portrait-header">
+      <div>
+        <div class="portrait-badge-row">
+          <span class="badge-iu" data-bn="🎓 ইবিয়ান ও কুষ্টিয়াবাসী এক্সক্লুসিভ" data-en="🎓 IU & Kushtia Exclusive">🎓 ইবিয়ান ও কুষ্টিয়াবাসী এক্সক্লুসিভ</span>
+          <span class="badge-free-delivery" data-bn="🎉 ডেলিভারি চার্জ ৳০ (সম্পূর্ণ ফ্রি)" data-en="🎉 Delivery Fee ৳0 (100% Free)">🎉 ডেলিভারি চার্জ ৳০ (সম্পূর্ণ ফ্রি)</span>
+        </div>
+        <h2 class="portrait-title" data-bn="কুষ্টিয়া শহর ও ইসলামী বিশ্ববিদ্যালয় (IU) স্পেশাল অফার!" data-en="Kushtia City & Islamic University (IU) Special Offer!">
+          কুষ্টিয়া শহর ও ইসলামী বিশ্ববিদ্যালয় (IU) স্পেশাল অফার!
+        </h2>
+        <p class="portrait-subtitle" data-bn="ইবি ক্যাম্পাসের যেকোনো হল, ডিপার্টমেন্ট, মেস কিংবা কুষ্টিয়া শহরের ঠিকানায় ক্যাশ অন ডেলিভারি একদম ফ্রি (৳০ ডেলিভারি চার্জ)!" data-en="Zero delivery fee across all IU halls, departments, student messes, and Kushtia city addresses with Cash on Delivery!">
+          ইবি ক্যাম্পাসের যেকোনো হল, ডিপার্টমেন্ট, মেস কিংবা কুষ্টিয়া শহরের ঠিকানায় ক্যাশ অন ডেলিভারি একদম <strong>ফ্রি (৳০ ডেলিভারি চার্জ)</strong>!
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick 1-Tap Inline Express Form -->
+    <form id="top-kushtia-form" onsubmit="handleTopKushtiaOrder(event)" class="portrait-form">
+      <div class="form-field-group">
+        <label data-bn="১. পছন্দের কম্বো বেছে নিন" data-en="1. Select Combo Package">১. পছন্দের কম্বো বেছে নিন</label>
+        <select id="top_combo_select" onchange="syncTopComboPrice()">
+          {% for combo in combos %}
+            <option value="{{ combo.id }}" data-price="{{ combo.price }}" {% if 'extra' in combo.slug %}selected{% endif %}
+                    data-bn="{{ combo.bn_name }} — ৳{{ "%.0f"|format(combo.price) }} ({{ combo.discount_text }})"
+                    data-en="{{ combo.en_name }} — ৳{{ "%.0f"|format(combo.price) }} ({{ combo.en_discount }})">
+              {{ combo.bn_name }} — ৳{{ "%.0f"|format(combo.price) }} ({{ combo.discount_text }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-field-group">
+        <label data-bn="২. আপনার পূর্ণ নাম" data-en="2. Full Name">২. আপনার পূর্ণ নাম</label>
+        <input type="text" id="top_name" required placeholder="আপনার নাম লিখুন" data-bn-placeholder="আপনার নাম লিখুন" data-en-placeholder="Enter your name">
+      </div>
+
+      <div class="form-field-group">
+        <label data-bn="৩. মোবাইল নম্বর (১১ ডিজিট)" data-en="3. Mobile (11 digits)">৩. মোবাইল নম্বর (১১ ডিজিট)</label>
+        <input type="tel" id="top_phone" required maxlength="11" inputmode="numeric" autocomplete="tel" placeholder="01XXXXXXXXX">
+      </div>
+
+      <div class="form-field-group">
+        <label data-bn="৪. হল/ডিপার্টমেন্ট বা কুষ্টিয়া এলাকা" data-en="4. Hall/Dept or Kushtia Location">৪. হল/ডিপার্টমেন্ট বা কুষ্টিয়া এলাকা</label>
+        <input type="text" id="top_campus" minlength="3" required placeholder="যেমন: সাদ্দাম হল ২০৪ নং রুম / সিএসই" data-bn-placeholder="যেমন: সাদ্দাম হল ২০৪ নং রুম / সিএসই" data-en-placeholder="e.g. Saddam Hall 204 / CSE Dept">
+      </div>
+
+      <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.25); padding: 8px 14px; border-radius: 8px; font-size: 13px;">
+          <span><span data-bn="ডেলিভারি চার্জ:" data-en="Delivery Fee:">ডেলিভারি চার্জ:</span> <strong style="color: #10B981;" data-bn="৳০ (ফ্রি ডেলিভারি)" data-en="৳0 (Free Delivery)">৳০ (ফ্রি ডেলিভারি)</strong></span>
+          <span><span data-bn="সর্বমোট প্রদেয়:" data-en="Total Amount:">সর্বমোট প্রদেয়:</span> <strong id="top_total_display" style="color: #F5A623; font-size: 16px;">৳১৩০</strong> (<span data-bn="ক্যাশ অন ডেলিভারি" data-en="Cash on Delivery">ক্যাশ অন ডেলিভারি</span>)</span>
+        </div>
+
+        <button type="submit" class="portrait-submit-btn" id="top_submit_btn">
+          <span>⚡</span>
+          <span data-bn="১-ট্যাপে ফ্রি ডেলিভারি অর্ডার সম্পন্ন করুন" data-en="1-Tap Free Delivery Order Confirm">১-ট্যাপে ফ্রি ডেলিভারি অর্ডার সম্পন্ন করুন</span>
+        </button>
+        <p style="font-size:11px; opacity:.8; text-align:center; margin-top:2px;" data-bn="ℹ️ অর্ডার সম্পন্ন না করলেও আপনার দেওয়া তথ্য সংরক্ষিত হতে পারে।" data-en="ℹ️ Even if you do not finish, the details you entered may be saved.">ℹ️ অর্ডার সম্পন্ন না করলেও আপনার দেওয়া তথ্য সংরক্ষিত হতে পারে।</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ==================== 3. COMBO PACKAGES SECTION ==================== -->
+<section class="combos-section" id="combos-section">
+  <div class="section-header">
+    <span class="section-pill" data-bn="🛍️ কম্বো অফার সমূহ" data-en="🛍️ Combo Packages">🛍️ কম্বো অফার সমূহ</span>
+    <h2 class="section-title" data-bn="আপনার পছন্দের কম্বোটি বেছে নিন" data-en="Choose Your Favorite Combo">আপনার পছন্দের কম্বোটি বেছে নিন</h2>
+    <p class="section-subtitle" data-bn="পরীক্ষার হল ও পড়ার টেবিলের জন্য সাজানো কমপ্লিট স্টেশনারি কিট।" data-en="Complete stationery kits carefully organized for study tables and exam halls.">
+      পরীক্ষার হল ও পড়ার টেবিলের জন্য সাজানো কমপ্লিট স্টেশনারি কিট।
+    </p>
+    <p class="section-hint" data-bn="🛒 পছন্দের কম্বো কার্টে যোগ করুন, তারপর একসাথে চেকআউট করুন।" data-en="🛒 Add your favourite combos to the cart, then checkout everything together.">🛒 পছন্দের কম্বো কার্টে যোগ করুন, তারপর একসাথে চেকআউট করুন।</p>
+  </div>
+
+  <div class="combo-grid">
+    {% for combo in combos %}
+      <div class="combo-card {% if 'extra' in combo.slug %}featured{% endif %}">
+        {% if combo.badge_text %}
+          <div class="combo-tag" data-bn="{{ combo.badge_text }}" data-en="{{ combo.en_badge }}">{{ combo.badge_text }}</div>
+        {% endif %}
+
+        <div>
+          <div class="combo-header">
+            <h3 data-bn="{{ combo.bn_name }}" data-en="{{ combo.en_name }}">{{ combo.bn_name }}</h3>
+            <p class="combo-tagline" data-bn="{{ combo.tagline }}" data-en="{{ combo.en_tagline }}">{{ combo.tagline }}</p>
+          </div>
+
+          <div class="combo-pricing">
+            <span class="current-price">৳{{ "%.0f"|format(combo.price) }}</span>
+            <span class="regular-price">৳{{ "%.0f"|format(combo.original_price) }}</span>
+            <span class="save-badge" data-bn="{{ combo.discount_text }}" data-en="{{ combo.en_discount }}">{{ combo.discount_text }}</span>
+          </div>
+
+          <div class="items-list">
+            <div class="items-list-title" data-bn="📦 এই কম্বোতে যা যা থাকছে:" data-en="📦 Items in this combo:">📦 এই কম্বোতে যা যা থাকছে:</div>
+            <ul>
+              {% for item in combo.items_breakdown %}
+                <li>
+                  <span class="item-left">
+                    <span>{{ item.icon or '✏️' }}</span>
+                    <strong data-bn="{{ item.name }}" data-en="{{ item.en_name }}">{{ item.name }}</strong> ({{ item.qty }})
+                  </span>
+                  <span class="item-market-price"><span data-bn="খুচরা:" data-en="Retail:">খুচরা:</span> ৳{{ item.market_price }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <button type="button" class="combo-select-btn" onclick="addToCart('{{ combo.id }}', this)">
+          <span data-bn="কার্টে যোগ করুন ({{ combo.price|bn_money }})" data-en="Add to Cart (৳{{ "%.0f"|format(combo.price) }})">কার্টে যোগ করুন ({{ combo.price|bn_money }})</span> 🛒
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ==================== 4. DARAZ & ROKOMARI COMPARISON TABLE ==================== -->
+<section class="comparison-section">
+  <div class="section-header">
+    <span class="section-pill" data-bn="📊 বাজারদর যাচাই" data-en="📊 Price Comparison">📊 বাজারদর যাচাই</span>
+    <h2 class="section-title" data-bn="দারাজ ও রকমারির তুলনায় আমরা কেন সেরা?" data-en="Why Are We Better Than Daraz & Rokomari?">দারাজ ও রকমারির তুলনায় আমরা কেন সেরা?</h2>
+    <p class="section-subtitle" data-bn="দারাজ ও রকমারি থেকে আলাদা কিনলে যা খরচ হবে, প্রিমোরা কিটের কম্বোতে আপনি পাচ্ছেন ৪৫%+ বেশি সাশ্রয়ে!" data-en="Buying separately on Daraz or Rokomari costs 180৳-240৳, while Primora Kit offers 45%+ extra savings!">
+      দারাজ ও রকমারি থেকে আলাদা কিনলে যা খরচ হবে, প্রিমোরা কিটের কম্বোতে আপনি পাচ্ছেন ৪৫%+ বেশি সাশ্রয়ে!
+    </p>
+  </div>
+
+  <div class="table-responsive">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th data-bn="পণ্যের বিবরণ" data-en="Item Name">পণ্যের বিবরণ</th>
+          <th data-bn="দারাজ / রকমারি খুচরা দর" data-en="Daraz / Rokomari Retail Price">দারাজ / রকমারি খুচরা দর</th>
+          <th data-bn="আমাদের কম্বো রেট" data-en="Our Combo Rate">আমাদের কম্বো রেট</th>
+          <th data-bn="আপনার লাভ" data-en="Your Benefit">আপনার লাভ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong data-bn="ফ্রেশ শাইন বলপেন" data-en="Fresh Shine Ball Pen">ফ্রেশ শাইন বলপেন</strong></td>
+          <td data-bn="দারাজে ৬.৭৫৳ - ৮৳ পিছ" data-en="6.75৳ - 8৳ each on Daraz">দারাজে ৬.৭৫৳ - ৮৳ পিছ</td>
+          <td><strong data-bn="৬.৬৭৳ (কম্বোতে অন্তর্ভুক্ত)" data-en="6.67৳ (in combo)">৬.৬৭৳</strong></td>
+          <td><span class="save-badge" data-bn="সাশ্রয়ী" data-en="Cheaper">সাশ্রয়ী</span></td>
+        </tr>
+        <tr>
+          <td><strong data-bn="ইমোজি পেন্সিল ইরেজার" data-en="Emoji Pencil Eraser">ইমোজি পেন্সিল ইরেজার</strong></td>
+          <td data-bn="রকমারিতে ৬৳ পিছ" data-en="6৳ each on Rokomari">রকমারিতে ৬৳ পিছ</td>
+          <td><strong data-bn="৫৳ পিছ" data-en="5৳ each">৫৳</strong></td>
+          <td><span class="save-badge" data-bn="সাশ্রয়ী" data-en="Cheaper">সাশ্রয়ী</span></td>
+        </tr>
+        <tr>
+          <td><strong data-bn="কালার ক্যান্ডি ডমস পেন্সিল HB" data-en="Color Candy Doms Pencil HB">কালার ক্যান্ডি ডমস পেন্সিল HB</strong></td>
+          <td data-bn="দারাজে ১১৳ পিছ" data-en="11৳ each on Daraz">দারাজে ১১৳ পিছ</td>
+          <td><strong data-bn="১০৳ পিছ" data-en="10৳ each">১০৳</strong></td>
+          <td><span class="save-badge" data-bn="সাশ্রয়ী" data-en="Cheaper">সাশ্রয়ী</span></td>
+        </tr>
+        <tr>
+          <td><strong data-bn="Deli 2B নিয়ন পেন্সিল (ইন্ডিয়ান)" data-en="Deli 2B Neon Pencil">Deli 2B নিয়ন পেন্সিল (ইন্ডিয়ান)</strong></td>
+          <td data-bn="দারাজে ২২.৫০৳ পিছ" data-en="22.50৳ each on Daraz">দারাজে ২২.৫০৳ পিছ</td>
+          <td><strong data-bn="২০৳ পিছ" data-en="20৳ each">২০৳</strong></td>
+          <td><span class="save-badge" data-bn="সাশ্রয়ী" data-en="Cheaper">সাশ্রয়ী</span></td>
+        </tr>
+        <tr>
+          <td><strong data-bn="ফ্লেক্সিবল রবার স্কেল PF পাইলট" data-en="Flexible Rubber Scale PF-Pilot">ফ্লেক্সিবল রবার স্কেল PF পাইলট</strong></td>
+          <td data-bn="রকমারিতে ৬০৳ পিছ" data-en="60৳ each on Rokomari">রকমারিতে ৬০৳ পিছ</td>
+          <td><strong data-bn="৫০৳ পিছ" data-en="50৳ each">৫০৳</strong></td>
+          <td><span class="save-badge" data-bn="সাশ্রয়ী" data-en="Cheaper">সাশ্রয়ী</span></td>
+        </tr>
+        <tr>
+          <td><strong data-bn="প্লাস্টিক ১ নম্বর ফেমাস স্কেল" data-en="Famous Plastic Scale 1 No">প্লাস্টিক ১ নম্বর ফেমাস স্কেল</strong></td>
+          <td data-bn="দারাজে ৩৫৳ পিছ" data-en="35৳ each on Daraz">দারাজে ৩৫৳ পিছ</td>
+          <td><strong data-bn="৩০৳ পিছ" data-en="30৳ each">৩০৳</strong></td>
+          <td><span class="save-badge" data-bn="সাশ্রয়ী" data-en="Cheaper">সাশ্রয়ী</span></td>
+        </tr>
+        <tr>
+          <td><strong data-bn="ওজি সাদা বটম ফাইল" data-en="Oaji White Bottom Exam File">ওজি সাদা বটম ফাইল</strong></td>
+          <td data-bn="খুচরা বাজারদর ৪০৳" data-en="Market Retail 40৳">খুচরা বাজারদর ৪০৳</td>
+          <td><strong data-bn="৪০৳ (কম্বোতে অন্তর্ভুক্ত)" data-en="40৳ (included)">৪০৳</strong></td>
+          <td><span class="save-badge" data-bn="সাশ্রয়ী" data-en="Cheaper">সাশ্রয়ী</span></td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong data-bn="Extra Combo (১১টি পণ্যের মোট)" data-en="Extra Combo (Total 11 Items)">Extra Combo (১১টি পণ্যের মোট)</strong></td>
+          <td><s data-bn="খুচরা বাজারে ৳ ২৪০" data-en="Retail Market ৳ 240">খুচরা বাজারে ৳ ২৪০</s></td>
+          <td><strong data-bn="মাত্র ৳ ১৩০!" data-en="Only ৳ 130!">মাত্র ৳ ১৩০!</strong></td>
+          <td><span class="save-badge" style="background:#10B981; color:#FFF;" data-bn="🎉 ১১০৳ সাশ্রয় (৪৬%)" data-en="🎉 Save 110৳ (46%)">🎉 ১১০৳ সাশ্রয় (৪৬%)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ==================== 5. ABOUT US ==================== -->
+<section class="about-us-section" id="about-us">
+  <div class="about-us-inner">
+    <div class="section-header">
+      <span class="section-pill" data-bn="👤 আমাদের সম্পর্কে" data-en="👤 About Us">👤 আমাদের সম্পর্কে</span>
+      <h2 class="section-title" data-bn="PRIMORA KIT — কারা আমরা?" data-en="PRIMORA KIT — Who We Are">PRIMORA KIT — কারা আমরা?</h2>
+      <p class="section-subtitle" data-bn="একজন IU শিক্ষার্থীর উদ্যোগে, শিক্ষার্থীদের জন্যই তৈরি।" data-en="Started by an IU student, built for students.">একজন IU শিক্ষার্থীর উদ্যোগে, শিক্ষার্থীদের জন্যই তৈরি।</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-founder-col">
+        <div class="about-founder-photo-wrap">
+          <img src="{{ url_for('static', filename='images/siyam_islam.jpg') }}" alt="Siyam Islam CEO" class="about-founder-img">
+          <span class="about-verified" data-bn="✓ যাচাইকৃত" data-en="✓ Verified">✓ যাচাইকৃত</span>
+        </div>
+        <div class="about-founder-name">Siyam Islam</div>
+        <div class="about-founder-title">CEO &amp; Founder, PRIMORA KIT</div>
+        <div class="about-tags-row">
+          <span class="about-tag">🎓 CSE, Islamic University (IU)</span>
+          <span class="about-tag">💻 Tutor @ CyBer RDX</span>
+          <span class="about-tag">📍 Kushtia Sadar, Khulna</span>
+        </div>
+        <div class="about-socials">
+          <a href="https://www.facebook.com/siyam.islam.643583" target="_blank" class="about-social-btn fb" data-bn="🔵 ফেসবুক" data-en="🔵 Facebook">🔵 ফেসবুক</a>
+          <a href="https://wa.me/8801939707648" target="_blank" class="about-social-btn wa">🟢 WhatsApp</a>
+        </div>
+      </div>
+      <div class="about-text-col">
+        <h3 class="about-text-heading" data-bn="আমাদের গল্প ও অঙ্গীকার" data-en="Our Story &amp; Promise">আমাদের গল্প ও অঙ্গীকার</h3>
+        <p class="about-para" data-bn="প্রিমোরা কিট প্রতিষ্ঠিত হয়েছে ইসলামী বিশ্ববিদ্যালয়ের একজন সিএসই শিক্ষার্থীর হাত ধরে, যার অভিজ্ঞতা সরাসরি ক্যাম্পাস জীবন থেকে আসা। শিক্ষার্থীরা প্রতিদিন পরীক্ষার আগের রাতে সঠিক সামগ্রী না পেয়ে যে সমস্যায় পড়েন, তার স্থায়ী সমাধানই আমাদের লক্ষ্য।" data-en="PRIMORA KIT was founded by a CSE student of Islamic University, whose experience comes straight from campus life. Our goal is a lasting solution to the problem students face every night before exams when they cannot find the right stationery.">প্রিমোরা কিট প্রতিষ্ঠিত হয়েছে ইসলামী বিশ্ববিদ্যালয়ের একজন সিএসই শিক্ষার্থীর হাত ধরে, যার অভিজ্ঞতা সরাসরি ক্যাম্পাস জীবন থেকে আসা। শিক্ষার্থীরা প্রতিদিন পরীক্ষার আগের রাতে সঠিক সামগ্রী না পেয়ে যে সমস্যায় পড়েন, তার স্থায়ী সমাধানই আমাদের লক্ষ্য।</p>
+        <p class="about-para" data-bn="আমরা কোনো মধ্যস্বত্বভোগী বা ড্রপশিপার নই। সরাসরি বিশ্বস্ত উৎস থেকে সংগৃহীত প্রিমিয়াম ব্র্যান্ডের প্রতিটি সামগ্রী যাচাই করে প্যাকেজ করা হয় এবং ইবি ক্যাম্পাস ও কুষ্টিয়া শহরে সম্পূর্ণ ফ্রি ডেলিভারিতে পৌঁছে দেওয়া হয়।" data-en="We are not middlemen or dropshippers. Every premium-brand item is sourced directly from trusted suppliers, checked, packed, and delivered with completely free delivery to the IU campus and Kushtia town.">আমরা কোনো মধ্যস্বত্বভোগী বা ড্রপশিপার নই। সরাসরি বিশ্বস্ত উৎস থেকে সংগৃহীত প্রিমিয়াম ব্র্যান্ডের প্রতিটি সামগ্রী যাচাই করে প্যাকেজ করা হয় এবং ইবি ক্যাম্পাস ও কুষ্টিয়া শহরে সম্পূর্ণ ফ্রি ডেলিভারিতে পৌঁছে দেওয়া হয়।</p>
+        <div class="about-stats-row">
+          <div class="about-stat"><span class="stat-number">৪৫%+</span><span class="stat-label" data-bn="বাজারদরের চেয়ে কম" data-en="Cheaper than market price">বাজারদরের চেয়ে কম</span></div>
+          <div class="about-stat"><span class="stat-number">৳০</span><span class="stat-label" data-bn="কুষ্টিয়া ও ইবিতে ডেলিভারি চার্জ" data-en="Delivery charge in Kushtia &amp; IU">কুষ্টিয়া ও ইবিতে ডেলিভারি চার্জ</span></div>
+          <div class="about-stat"><span class="stat-number">১০০%</span><span class="stat-label" data-bn="ক্যাশ অন ডেলিভারি" data-en="Cash on Delivery">ক্যাশ অন ডেলিভারি</span></div>
+        </div>
+        <div class="about-store-links">
+          <a href="https://www.facebook.com/primorakit" target="_blank" class="about-store-btn" data-bn="🌐 স্টোর ফেসবুক পেজ দেখুন" data-en="🌐 Visit our Facebook page">🌐 স্টোর ফেসবুক পেজ দেখুন</a>
+          <a href="#kushtia-iu-section" class="about-store-btn primary" data-bn="⚡ এখনই অর্ডার করুন" data-en="⚡ Order Now">⚡ এখনই অর্ডার করুন</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ==================== HERO SLIDER ====================
+  let heroSlideIndex = 0;
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroDots = document.querySelectorAll('.slider-dot');
+  let heroAutoTimer = null;
+
+  function gotoHeroSlide(idx) {
+    heroSlides.forEach(s => s.classList.remove('active'));
+    heroDots.forEach(d => d.classList.remove('active'));
+    heroSlideIndex = (idx + heroSlides.length) % heroSlides.length;
+    if (heroSlides[heroSlideIndex]) heroSlides[heroSlideIndex].classList.add('active');
+    if (heroDots[heroSlideIndex]) heroDots[heroSlideIndex].classList.add('active');
+  }
+
+  function prevHeroSlide() { gotoHeroSlide(heroSlideIndex - 1); }
+  function nextHeroSlide() { gotoHeroSlide(heroSlideIndex + 1); }
+
+  function startHeroAuto() {
+    heroAutoTimer = setInterval(() => gotoHeroSlide(heroSlideIndex + 1), 4500);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    syncTopComboPrice();
+    gotoHeroSlide(0);
+    startHeroAuto();
+    const slider = document.getElementById('heroSlider');
+    if (slider) {
+      slider.addEventListener('mouseenter', () => clearInterval(heroAutoTimer));
+      slider.addEventListener('mouseleave', startHeroAuto);
+    }
+  });
+
+  // ==================== KUSHTIA IU QUICK ORDER ====================
+  // remember what the customer typed (for follow-up if they leave without ordering)
+  document.addEventListener('DOMContentLoaded', function () {
+    const f = document.getElementById('top-kushtia-form');
+    if (!f || typeof PrimoraDraft === 'undefined') return;
+    PrimoraDraft.attach(f, function () {
+      const sel = document.getElementById('top_combo_select');
+      return {
+        source: 'quick',
+        customer_name: document.getElementById('top_name').value.trim(),
+        phone: document.getElementById('top_phone').value.trim(),
+        address: document.getElementById('top_campus').value.trim(),
+        delivery_zone: 'kushtia_iu',
+        payment_method: 'cod',
+        items: sel && sel.value ? [{ id: sel.value, qty: 1 }] : []
+      };
+    });
+  });
+
+  function syncTopComboPrice() {
+    const sel = document.getElementById('top_combo_select');
+    if (!sel) return;
+    const opt = sel.options[sel.selectedIndex];
+    const price = parseFloat(opt.getAttribute('data-price') || 0);
+    const disp = document.getElementById('top_total_display');
+    if (disp) disp.textContent = '৳' + String(Math.round(price)).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+  }
+
+  async function handleTopKushtiaOrder(e) {
+    e.preventDefault();
+    const sel = document.getElementById('top_combo_select');
+    const name = document.getElementById('top_name').value.trim();
+    const phone = document.getElementById('top_phone').value.trim();
+    const campus = document.getElementById('top_campus').value.trim();
+    const btn = document.getElementById('top_submit_btn');
+
+    if (!name) { alert('অনুগ্রহ করে আপনার নাম লিখুন।'); return; }
+    if (!phone || !/^01[3-9][0-9]{8}$/.test(phone)) { alert('সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন (01XXXXXXXXX)।'); return; }
+    if (!campus || campus.length < 3) { alert('হল/এলাকার নাম সর্বনিম্ন ৩ অক্ষর দিন।'); return; }
+
+    const comboId = sel ? sel.value : '';
+    btn.disabled = true;
+    btn.innerHTML = '⏳ প্রক্রিয়া চলছে...';
+
+    const payload = {
+      customer_name: name,
+      phone: phone,
+      address: campus,
+      delivery_zone: 'kushtia_iu',
+      payment_method: 'cod',
+      items: [{ type: 'combo', id: comboId, qty: 1 }],
+      draft_id: PrimoraDraft.id()
+    };
+
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if ((res.ok && data.order_id) || data.status === 'success') {
+        PrimoraDraft.done();
+        window.location.href = data.redirect_url || ('/order-success?order_id=' + (data.order_id || ''));
+      } else {
+        alert('ত্রুটি: ' + (data.message || 'অর্ডার দেওয়া সম্ভব হয়নি।'));
+        btn.disabled = false;
+        btn.innerHTML = '⚡ ১-ট্যাপে ফ্রি ডেলিভারি অর্ডার সম্পন্ন করুন';
+      }
+    } catch (err) {
+      alert('সার্ভার সংযোগ ব্যর্থ। ইন্টারনেট চেক করুন।');
+      btn.disabled = false;
+      btn.innerHTML = '⚡ ১-ট্যাপে ফ্রি ডেলিভারি অর্ডার সম্পন্ন করুন';
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="bn" data-lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PRIMORA KIT — Pay Less. Get Premium.{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="{{ url_for('static', filename='images/primora_logo.jpg') }}" type="image/jpeg">
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+  <!-- Top Announcement Marquee (Right to Left auto scroll) -->
+  <div class="announcement-bar">
+    <div class="marquee-wrap">
+      <div class="marquee-inner" data-bn="⚡ <span class='highlight'>বিশেষ মূল্যছাড়ের অফার:</span> প্রতিটি পণ্যে বাজারদরের চেয়েও কম দাম + <span class='highlight'>অতিরিক্ত ৪৫%+ সাশ্রয়!</span> &amp;nbsp;|&amp;nbsp; 🎓 কুষ্টিয়া ও ইবি ক্যাম্পাসে ফ্রি ডেলিভারি (৳০) &amp;nbsp;|&amp;nbsp; 🛒 এক্সাম কিট কম্বো মাত্র ৳১০০ &amp;nbsp;|&amp;nbsp; 🔥 এক্সট্রা কম্বো (১১টি পণ্য) মাত্র ৳১৩০ &amp;nbsp;|&amp;nbsp; 🤝 পার্সেল হাতে পেয়ে দেখে টাকা দিন &amp;nbsp;|&amp;nbsp; 📞 WhatsApp: 01843010908 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ⚡ <span class='highlight'>বিশেষ মূল্যছাড়ের অফার:</span> প্রতিটি পণ্যে বাজারদরের চেয়েও কম দাম + <span class='highlight'>অতিরিক্ত ৪৫%+ সাশ্রয়!</span> &amp;nbsp;|&amp;nbsp; 🎓 কুষ্টিয়া ও ইবি ক্যাম্পাসে ফ্রি ডেলিভারি (৳০) &amp;nbsp;|&amp;nbsp; 🛒 এক্সাম কিট কম্বো মাত্র ৳১০০ &amp;nbsp;|&amp;nbsp; 🔥 এক্সট্রা কম্বো (১১টি পণ্য) মাত্র ৳১৩০ &amp;nbsp;|&amp;nbsp; 🤝 পার্সেল হাতে পেয়ে দেখে টাকা দিন &amp;nbsp;|&amp;nbsp; 📞 WhatsApp: 01843010908 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;" data-en="⚡ <span class='highlight'>Special price offer:</span> Every item is priced below the market rate + <span class='highlight'>up to 45%+ extra savings!</span> &amp;nbsp;|&amp;nbsp; 🎓 Free delivery at Kushtia town &amp;amp; IU campus (৳0) &amp;nbsp;|&amp;nbsp; 🛒 Exam Kit Combo only ৳100 &amp;nbsp;|&amp;nbsp; 🔥 Extra Combo (11 items) only ৳130 &amp;nbsp;|&amp;nbsp; 🤝 Check the parcel, then pay &amp;nbsp;|&amp;nbsp; 📞 WhatsApp: 01843010908 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ⚡ <span class='highlight'>Special price offer:</span> Every item is priced below the market rate + <span class='highlight'>up to 45%+ extra savings!</span> &amp;nbsp;|&amp;nbsp; 🎓 Free delivery at Kushtia town &amp;amp; IU campus (৳0) &amp;nbsp;|&amp;nbsp; 🛒 Exam Kit Combo only ৳100 &amp;nbsp;|&amp;nbsp; 🔥 Extra Combo (11 items) only ৳130 &amp;nbsp;|&amp;nbsp; 🤝 Check the parcel, then pay &amp;nbsp;|&amp;nbsp; 📞 WhatsApp: 01843010908">
+        ⚡ <span class="highlight">বিশেষ মূল্যছাড়ের অফার:</span> প্রতিটি পণ্যে বাজারদরের চেয়েও কম দাম + <span class="highlight">অতিরিক্ত ৪৫%+ সাশ্রয়!</span> &nbsp;|&nbsp; 🎓 কুষ্টিয়া ও ইবি ক্যাম্পাসে ফ্রি ডেলিভারি (৳০) &nbsp;|&nbsp; 🛒 এক্সাম কিট কম্বো মাত্র ৳১০০ &nbsp;|&nbsp; 🔥 এক্সট্রা কম্বো (১১টি পণ্য) মাত্র ৳১৩০ &nbsp;|&nbsp; 🤝 পার্সেল হাতে পেয়ে দেখে টাকা দিন &nbsp;|&nbsp; 📞 WhatsApp: 01843010908 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ⚡ <span class="highlight">বিশেষ মূল্যছাড়ের অফার:</span> প্রতিটি পণ্যে বাজারদরের চেয়েও কম দাম + <span class="highlight">অতিরিক্ত ৪৫%+ সাশ্রয়!</span> &nbsp;|&nbsp; 🎓 কুষ্টিয়া ও ইবি ক্যাম্পাসে ফ্রি ডেলিভারি (৳০) &nbsp;|&nbsp; 🛒 এক্সাম কিট কম্বো মাত্র ৳১০০ &nbsp;|&nbsp; 🔥 এক্সট্রা কম্বো (১১টি পণ্য) মাত্র ৳১৩০ &nbsp;|&nbsp; 🤝 পার্সেল হাতে পেয়ে দেখে টাকা দিন &nbsp;|&nbsp; 📞 WhatsApp: 01843010908 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+
+  <!-- Header (Salextra Style) -->
+  <header class="main-header">
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <a href="{{ url_for('index') }}" class="brand-logo-wrap">
+        <img src="{{ url_for('static', filename='images/primora_logo.jpg') }}" alt="Primora Kit Logo" class="brand-logo-img">
+        <div class="brand-text-wrap">
+          <span class="brand-name">PRIMORA KIT</span>
+          <span class="brand-tagline">Pay Less. Get Premium.</span>
+        </div>
+      </a>
+
+      <!-- Category Dropdown (Salextra Style) -->
+      <div class="category-dropdown-wrapper" id="categoryMenuWrapper">
+        <button type="button" class="category-toggle-btn" id="categoryToggleBtn" onclick="toggleCategoryMenu()">
+          <span>☰</span>
+          <span data-bn="ক্যাটাগরি" data-en="Category">ক্যাটাগরি</span>
+          <span class="chevron">▼</span>
+        </button>
+
+        <div class="category-dropdown-panel" id="categoryDropdownPanel">
+          <!-- Left Column: Categories -->
+          <div class="category-left-col">
+            <a href="#combos-section" class="category-item-link active">
+              <span>✏️</span>
+              <span data-bn="স্টেশনারি সামগ্রী" data-en="Stationery">স্টেশনারি সামগ্রী</span>
+              <span class="category-item-badge active-badge" data-bn="সক্রিয়" data-en="Active">সক্রিয়</span>
+            </a>
+            <a href="javascript:void(0)" class="category-item-link" onclick="alert('শীঘ্রই আসছে! ইলেকট্রনিক্স ও গ্যাজেটস ক্যাটাগরি সংযুক্ত হচ্ছে।')">
+              <span>📱</span>
+              <span data-bn="ফোন ও গ্যাজেটস" data-en="Phone & Gadgets">ফোন ও গ্যাজেটস</span>
+              <span class="category-item-badge soon-badge" data-bn="শীঘ্রই" data-en="Soon">শীঘ্রই</span>
+            </a>
+            <a href="javascript:void(0)" class="category-item-link" onclick="alert('শীঘ্রই আসছে! লাইফস্টাইল ক্যাটাগরি সংযুক্ত হচ্ছে।')">
+              <span>👜</span>
+              <span data-bn="লাইফস্টাইল ও ব্যাগ" data-en="Lifestyle & Bags">লাইফস্টাইল ও ব্যাগ</span>
+              <span class="category-item-badge soon-badge" data-bn="শীঘ্রই" data-en="Soon">শীঘ্রই</span>
+            </a>
+          </div>
+
+          <!-- Right Column: Subcategories -->
+          <div class="category-right-col">
+            <div class="sub-category-title" data-bn="স্টেশনারি উপ-ক্যাটাগরি" data-en="Stationery Sub-categories">স্টেশনারি উপ-ক্যাটাগরি</div>
+            <a href="#combos-section" class="sub-category-link">📝 কলম ও পেন্সিল</a>
+            <a href="#combos-section" class="sub-category-link">📁 ফাইল ও ফোল্ডার</a>
+            <a href="#combos-section" class="sub-category-link">📐 স্কেল ও জ্যামিতি বক্স</a>
+            <a href="#combos-section" class="sub-category-link">🧹 ইরেজার ও শার্পনার</a>
+            <a href="#combos-section" class="sub-category-link">🎨 রঙিন পেন্সিল ও মার্কার</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Central Search Bar -->
+      <div class="header-search-wrap">
+        <input type="text" id="global_search_input" class="header-search-input"
+          placeholder="পণ্য বা কম্বো খুঁজুন..."
+          data-bn-placeholder="পণ্য বা কম্বো খুঁজুন..."
+          data-en-placeholder="Search products or combos..."
+          onkeydown="if(event.key==='Enter') doHeaderSearch()">
+        <button type="button" class="header-search-btn" onclick="doHeaderSearch()">🔍</button>
+      </div>
+
+      <!-- Right Controls -->
+      <div class="header-right-controls">
+        <!-- BN/EN Language Toggle -->
+        <div class="lang-toggle-wrap">
+          <button type="button" class="lang-btn active" id="btn_lang_bn" onclick="setAppLanguage('bn')">বাং</button>
+          <span class="lang-divider">|</span>
+          <button type="button" class="lang-btn" id="btn_lang_en" onclick="setAppLanguage('en')">EN</button>
+        </div>
+
+        <!-- Track Order -->
+        <a href="{{ url_for('track_page') }}" class="header-track-btn">
+          <span>🔍</span>
+          <span data-bn="ট্র্যাক" data-en="Track">ট্র্যাক</span>
+        </a>
+
+        <!-- Cart Button (items added with the "Add to cart" buttons are checked out together here) -->
+        <a href="{{ url_for('cart_page') }}" class="header-cart-btn" id="headerCartBtn" aria-label="Cart">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-btn-label" data-bn="কার্ট" data-en="Cart">কার্ট</span>
+          <span class="cart-count-badge js-cart-badge empty">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ==================== MAIN FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h4>PRIMORA KIT</h4>
+        <p data-bn="বাংলাদেশের স্টুডেন্ট ও চাকরি প্রার্থীদের জন্য প্রিমিয়াম স্টেশনারি কম্বো বক্স। কম দামে বেশি পণ্য, সরাসরি আপনার দরজায় বা ক্যাম্পাসের হলে।" data-en="Premium stationery combo boxes for students and job candidates in Bangladesh. More products at lower prices, delivered right to your door or campus dorm.">
+          বাংলাদেশের স্টুডেন্ট ও চাকরি প্রার্থীদের জন্য প্রিমিয়াম স্টেশনারি কম্বো বক্স। কম দামে বেশি পণ্য, সরাসরি আপনার দরজায় বা ক্যাম্পাসের হলে।
+        </p>
+        <p style="margin-top: 10px;">
+          📞 <span data-bn="স্টোর হেল্পলাইন:" data-en="Store Helpline:">স্টোর হেল্পলাইন:</span> <strong>{{ settings.support_phone or '01843010908' }}</strong>
+        </p>
+        <p style="margin-top: 4px;">
+          💬 <span data-bn="অফিসিয়াল হোয়াটসঅ্যাপ:" data-en="Official WhatsApp:">অফিসিয়াল হোয়াটসঅ্যাপ:</span> <strong>{{ settings.whatsapp_number or '01843010908' }}</strong>
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color:#FFF; margin-bottom:8px;" data-bn="ক্যাম্পাস ও লোকাল ডেলিভারি" data-en="Campus & Local Delivery">ক্যাম্পাস ও লোকাল ডেলিভারি</h4>
+        <p data-bn="🎓 ইসলামী বিশ্ববিদ্যালয় (IU) স্পেশাল ফ্রি ডেলিভারি (৳০)" data-en="🎓 Islamic University (IU) Special Free Delivery (৳0)">🎓 ইসলামী বিশ্ববিদ্যালয় (IU) স্পেশাল ফ্রি ডেলিভারি (৳০)</p>
+        <p data-bn="📍 কুষ্টিয়া সদর ও শহরের যেকোনো এলাকায় ফ্রি ডেলিভারি" data-en="📍 Kushtia Sadar & city area free delivery">📍 কুষ্টিয়া সদর ও শহরের যেকোনো এলাকায় ফ্রি ডেলিভারি</p>
+        <p data-bn="🚚 সারা বাংলাদেশে ক্যাশ অন ডেলিভারি (Steadfast / RedX)" data-en="🚚 Nationwide Cash on Delivery (Steadfast / RedX)">🚚 সারা বাংলাদেশে ক্যাশ অন ডেলিভারি (Steadfast / RedX)</p>
+        <p style="margin-top: 8px;">
+          <a href="{{ settings.facebook_page or 'https://www.facebook.com/primorakit' }}" target="_blank" style="color: #F5A623; font-weight: bold;">
+            🌐 <span data-bn="ফেসবুক পেজ: facebook.com/primorakit" data-en="Facebook: facebook.com/primorakit">ফেসবুক পেজ: facebook.com/primorakit</span>
+          </a>
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color:#FFF; margin-bottom:8px;" data-bn="গ্রাহক সেবা ও ট্র্যাকিং" data-en="Customer Service & Tracking">গ্রাহক সেবা ও ট্র্যাকিং</h4>
+        <p><a href="{{ url_for('track_page') }}" style="color:#F5A623;">🔍 <span data-bn="আপনার পার্সেল ট্র্যাক করুন" data-en="Track Your Parcel">আপনার পার্সেল ট্র্যাক করুন</span></a></p>
+        <p style="margin-top:8px;" data-bn="🤝 ১০০% ক্যাশ অন ডেলিভারি (হাতে পেয়ে টাকা দিন)" data-en="🤝 100% Cash on Delivery (Pay after receiving)">🤝 ১০০% ক্যাশ অন ডেলিভারি (হাতে পেয়ে টাকা দিন)</p>
+        <p style="margin-top:8px;"><a href="{{ url_for('index') }}#about-us" style="color:#F5A623;">👤 <span data-bn="আমাদের সম্পর্কে" data-en="About Us">আমাদের সম্পর্কে</span></a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2026 PRIMORA KIT. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING SOCIAL CHAT STACK (BOTTOM RIGHT) ==================== -->
+  <div class="floating-chat-stack">
+    <!-- Facebook / Messenger Floating Button -->
+    <a href="{{ settings.facebook_page or 'https://www.facebook.com/primorakit' }}" target="_blank" class="chat-bubble-btn fb" title="Facebook Page">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+      <span class="chat-bubble-tooltip" data-bn="ফেসবুক পেজে মেসেজ দিন" data-en="Chat on Facebook">ফেসবুক পেজে মেসেজ দিন</span>
+    </a>
+
+    <!-- WhatsApp Floating Button with Radar Pulse -->
+    <a href="https://wa.me/{{ settings.whatsapp_number or '8801843010908' }}?text=Hello%20Primora%20Kit,%20I%20want%20to%20order" target="_blank" class="chat-bubble-btn wa" title="WhatsApp Support">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span class="chat-bubble-tooltip" data-bn="হোয়াটসঅ্যাপে মেসেজ দিন" data-en="Chat on WhatsApp">হোয়াটসঅ্যাপে মেসেজ দিন</span>
+    </a>
+  </div>
+
+  <!-- Mobile Sticky Bottom Action Bar -->
+  <div class="mobile-sticky-bar">
+    <div class="sticky-price-wrap">
+      <span class="sticky-price-label" data-bn="অফার শুরু মাত্র" data-en="Combos start from">অফার শুরু মাত্র</span>
+      <span class="sticky-price-value">৳১০০</span>
+    </div>
+    <div class="sticky-actions-wrap">
+      <a href="https://wa.me/{{ settings.whatsapp_number or '8801843010908' }}" target="_blank" class="sticky-whatsapp-btn" title="WhatsApp">
+        💬
+      </a>
+      <a href="{{ url_for('cart_page') }}" class="sticky-order-btn" id="stickyCartBtn">
+        <span data-bn="কার্ট দেখুন" data-en="View Cart">কার্ট দেখুন</span> 🛒
+        <span class="cart-count-badge js-cart-badge empty">0</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Add-to-cart toast -->
+  <div class="cart-toast" id="cartToast" role="status" aria-live="polite"></div>
+
+  <!-- ==================== CLIENT SCRIPTS & BILINGUAL ENGINE ==================== -->
+  <script>
+    // ==================== CART ENGINE (localStorage, works on every page) ====================
+    const CART_KEY = "primora_cart_v1";
+    const CART_URL = "{{ url_for('cart_page') }}";
+    const MAX_QTY = 50;
+    let memCart = null;
+
+    function currentLang() { return document.documentElement.getAttribute("data-lang") || "bn"; }
+    function fmtNum(n) {
+      const t = String(n);
+      return currentLang() === "en" ? t : t.replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+    }
+    function fmtMoney(n) { return "৳" + fmtNum(Math.round(n)); }
+
+    function loadCart() {
+      if (memCart) return memCart;
+      let list = [];
+      try { list = JSON.parse(localStorage.getItem(CART_KEY) || "[]"); } catch (e) { list = []; }
+      if (!Array.isArray(list)) list = [];
+      memCart = list
+        .map(x => ({ id: String(x && x.id), qty: Math.max(1, Math.min(MAX_QTY, parseInt(x && x.qty, 10) || 1)) }))
+        .filter(x => x.id && x.id !== "undefined");
+      return memCart;
+    }
+    function saveCart() {
+      try { localStorage.setItem(CART_KEY, JSON.stringify(memCart || [])); } catch (e) { /* private mode: keep in memory */ }
+      updateCartBadges();
+    }
+    function cartCount() { return loadCart().reduce((sum, l) => sum + l.qty, 0); }
+
+    window.PrimoraCart = {
+      load: loadCart,
+      count: cartCount,
+      replace(list) { memCart = list; saveCart(); },
+      setQty(id, qty) {
+        const line = loadCart().find(l => l.id === String(id));
+        if (!line) return;
+        line.qty = Math.max(1, Math.min(MAX_QTY, qty));
+        saveCart();
+      },
+      remove(id) { memCart = loadCart().filter(l => l.id !== String(id)); saveCart(); },
+      clear() { memCart = []; saveCart(); }
+    };
+
+    function updateCartBadges() {
+      const n = cartCount();
+      document.querySelectorAll(".js-cart-badge").forEach(b => {
+        b.textContent = fmtNum(n);
+        b.classList.toggle("empty", n === 0);
+      });
+    }
+
+    // keep several open tabs in sync
+    window.addEventListener("storage", e => {
+      if (e.key === CART_KEY) {
+        memCart = null;
+        updateCartBadges();
+        if (typeof window.onCartExternalChange === "function") window.onCartExternalChange();
+      }
+    });
+
+    function bumpElement(el) {
+      if (!el) return;
+      el.classList.remove("cart-bump");
+      void el.offsetWidth; // restart animation
+      el.classList.add("cart-bump");
+      setTimeout(() => el.classList.remove("cart-bump"), 600);
+    }
+
+    function pickCartTarget() {
+      const header = document.getElementById("headerCartBtn");
+      const sticky = document.getElementById("stickyCartBtn");
+      const visible = el => el && el.getClientRects().length > 0;
+      if (window.innerWidth < 768 && visible(sticky)) return sticky;
+      return visible(header) ? header : (visible(sticky) ? sticky : null);
+    }
+
+    // the small "flying cart" animation from the clicked button to the cart icon
+    function flyToCart(srcEl) {
+      const target = pickCartTarget();
+      const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!srcEl || !target || reduce) { bumpElement(target); return; }
+
+      const s = srcEl.getBoundingClientRect();
+      const t = target.getBoundingClientRect();
+      const dot = document.createElement("div");
+      dot.className = "fly-dot";
+      dot.textContent = "🛒";
+      dot.style.left = (s.left + s.width / 2 - 18) + "px";
+      dot.style.top = (s.top + s.height / 2 - 18) + "px";
+      document.body.appendChild(dot);
+
+      const dx = (t.left + t.width / 2) - (s.left + s.width / 2);
+      const dy = (t.top + t.height / 2) - (s.top + s.height / 2);
+
+      if (!dot.animate) { dot.remove(); bumpElement(target); return; }
+      const anim = dot.animate([
+        { transform: "translate(0,0) scale(1)", opacity: 1 },
+        { transform: "translate(" + (dx * 0.5) + "px," + (dy * 0.5 - 70) + "px) scale(1.2)", opacity: 1, offset: 0.45 },
+        { transform: "translate(" + dx + "px," + dy + "px) scale(0.3)", opacity: 0.35 }
+      ], { duration: 750, easing: "cubic-bezier(.5,.05,.4,1)" });
+      anim.onfinish = () => { dot.remove(); bumpElement(target); };
+      anim.oncancel = () => dot.remove();
+    }
+
+    function markAdded(btn) {
+      if (!btn) return;
+      if (!btn.dataset.orig) btn.dataset.orig = btn.innerHTML;
+      btn.classList.add("added");
+      btn.innerHTML = "<span>✓ " + (currentLang() === "en" ? "Added to cart" : "কার্টে যোগ হয়েছে") + "</span>";
+      clearTimeout(btn._addedTimer);
+      btn._addedTimer = setTimeout(() => {
+        btn.classList.remove("added");
+        if (btn.dataset.orig) { btn.innerHTML = btn.dataset.orig; delete btn.dataset.orig; }
+      }, 1400);
+    }
+
+    function showCartToast() {
+      const t = document.getElementById("cartToast");
+      if (!t) return;
+      const en = currentLang() === "en";
+      t.innerHTML =
+        '<span class="toast-check">✓</span>' +
+        "<span>" + (en ? "Added to cart" : "কার্টে যোগ হয়েছে") + " (" + fmtNum(cartCount()) + ")</span>" +
+        '<a href="' + CART_URL + '">' + (en ? "View cart" : "কার্ট দেখুন") + " →</a>";
+      t.classList.add("show");
+      clearTimeout(t._hideTimer);
+      t._hideTimer = setTimeout(() => t.classList.remove("show"), 2800);
+    }
+
+    // Order buttons call this: they only ADD to the cart (no page jump). Checkout happens together on /cart.
+    function addToCart(id, btn) {
+      const cart = loadCart();
+      const key = String(id);
+      const line = cart.find(l => l.id === key);
+      if (line) line.qty = Math.min(MAX_QTY, line.qty + 1);
+      else cart.push({ id: key, qty: 1 });
+      saveCart();
+      flyToCart(btn);
+      markAdded(btn);
+      showCartToast();
+    }
+
+    document.addEventListener("DOMContentLoaded", updateCartBadges);
+
+    // Toggle Category Menu
+    function toggleCategoryMenu() {
+      const wrapper = document.getElementById("categoryMenuWrapper");
+      wrapper.classList.toggle("active");
+    }
+
+    document.addEventListener("click", function(e) {
+      const wrapper = document.getElementById("categoryMenuWrapper");
+      if (wrapper && !wrapper.contains(e.target)) {
+        wrapper.classList.remove("active");
+      }
+    });
+
+    // Header Search
+    function doHeaderSearch() {
+      const q = document.getElementById("global_search_input").value.trim().toLowerCase();
+      if (!q) return;
+      const target = document.getElementById("combos-section");
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // ===== Checkout draft saver: keeps whatever the customer typed so the shop can follow up =====
+    const PrimoraDraft = (function () {
+      const KEY = "primora_draft_id";
+      let memId = null, timer = null, idleTimer = null, getter = null, off = false, lastSent = "", lastFinal = "";
+      function newId() {
+        let a = "";
+        try { a = Array.from(crypto.getRandomValues(new Uint8Array(12))).map(b => b.toString(16).padStart(2, "0")).join(""); } catch (e) {}
+        while (a.length < 24) a += Math.floor(Math.random() * 16).toString(16);
+        return a.slice(0, 24);
+      }
+      function id() {
+        if (memId) return memId;
+        try { const v = localStorage.getItem(KEY); if (v && /^[a-f0-9]{16,40}$/.test(v)) { memId = v; return v; } } catch (e) {}
+        memId = newId();
+        try { localStorage.setItem(KEY, memId); } catch (e) {}
+        return memId;
+      }
+      function snapshot() {
+        if (!getter) return null;
+        let d = null;
+        try { d = getter(); } catch (e) { return null; }
+        if (!d) return null;
+        const has = (d.customer_name || "").length >= 2 || (d.phone || "").replace(/\D/g, "").length >= 6 || (d.address || "").length >= 3;
+        return has ? d : null;
+      }
+      function send(final) {
+        if (off) return;
+        const d = snapshot();
+        if (!d) return;
+        d.draft_id = id();
+        d.final = !!final;
+        const key = JSON.stringify(Object.assign({}, d, { final: 0 }));
+        if (final ? key === lastFinal : key === lastSent) return;
+        lastSent = key;
+        if (final) lastFinal = key;
+        const body = JSON.stringify(d);
+        try {
+          if (final && navigator.sendBeacon) {
+            navigator.sendBeacon("/api/checkout-draft", new Blob([body], { type: "application/json" }));
+            return;
+          }
+        } catch (e) {}
+        try {
+          fetch("/api/checkout-draft", { method: "POST", headers: { "Content-Type": "application/json" }, body: body, keepalive: true }).catch(() => {});
+        } catch (e) {}
+      }
+      function schedule() {
+        if (off) return;
+        clearTimeout(timer);
+        clearTimeout(idleTimer);
+        timer = setTimeout(() => send(false), 3000);   // save a few seconds after typing stops
+        idleTimer = setTimeout(() => send(true), 90000); // 90 s of silence = treat as abandoned
+      }
+      return {
+        id: id,
+        attach: function (form, fn) {
+          getter = fn;
+          if (!form) return;
+          form.addEventListener("input", schedule);
+          form.addEventListener("change", schedule);
+          document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") send(true); });
+          window.addEventListener("pagehide", () => send(true));
+        },
+        done: function () {
+          off = true;
+          clearTimeout(timer);
+          clearTimeout(idleTimer);
+          try { localStorage.removeItem(KEY); } catch (e) {}
+          memId = null;
+        }
+      };
+    })();
+
+    // Bilingual Switcher Engine
+    // ===== English mode: show Latin digits (1,2,3) instead of Bengali digits (১,২,৩) everywhere =====
+    const BN_DIGIT_MAP = { "০": "0", "১": "1", "২": "2", "৩": "3", "৪": "4", "৫": "5", "৬": "6", "৭": "7", "৮": "8", "৯": "9" };
+    const HAS_BN_DIGIT = /[০-৯]/;
+    let digitObserver = null;
+    function convertDigitsIn(root) {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      let n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(convertDigitNode);
+    }
+    function convertDigitNode(node) {
+      const p = node.parentNode;
+      if (!p || /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName)) return;
+      if (!HAS_BN_DIGIT.test(node.nodeValue)) return;
+      if (node.__bn === undefined) node.__bn = node.nodeValue;
+      node.nodeValue = node.nodeValue.replace(/[০-৯]/g, d => BN_DIGIT_MAP[d]);
+    }
+    function restoreDigits() {
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = walker.nextNode())) {
+        if (n.__bn !== undefined) { n.nodeValue = n.__bn; delete n.__bn; }
+      }
+    }
+    function applyDigitMode(lang) {
+      if (lang === "en") {
+        convertDigitsIn(document.body);
+        if (!digitObserver) {
+          digitObserver = new MutationObserver(muts => {
+            if (document.documentElement.getAttribute("data-lang") !== "en") return;
+            muts.forEach(m => {
+              if (m.type === "characterData") convertDigitNode(m.target);
+              m.addedNodes.forEach(nd => {
+                if (nd.nodeType === 3) convertDigitNode(nd);
+                else if (nd.nodeType === 1) convertDigitsIn(nd);
+              });
+            });
+          });
+          digitObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
+        }
+      } else {
+        restoreDigits();
+      }
+    }
+
+    function setAppLanguage(lang) {
+      document.documentElement.setAttribute("data-lang", lang);
+      localStorage.setItem("primora_lang", lang);
+
+      const btnBn = document.getElementById("btn_lang_bn");
+      const btnEn = document.getElementById("btn_lang_en");
+
+      if (btnBn && btnEn) {
+        btnBn.classList.toggle("active", lang === "bn");
+        btnEn.classList.toggle("active", lang === "en");
+      }
+
+      // Update all elements with data-bn and data-en
+      document.querySelectorAll("[data-" + lang + "]").forEach(el => {
+        const text = el.getAttribute("data-" + lang);
+        if (text) el.innerHTML = text;
+      });
+
+      // Update placeholders
+      document.querySelectorAll("[data-" + lang + "-placeholder]").forEach(el => {
+        const ph = el.getAttribute("data-" + lang + "-placeholder");
+        if (ph) el.setAttribute("placeholder", ph);
+      });
+
+      applyDigitMode(lang);
+
+      // Re-draw cart numbers / dynamic pages in the chosen language
+      if (typeof updateCartBadges === "function") updateCartBadges();
+      if (typeof window.onLanguageChanged === "function") window.onLanguageChanged(lang);
+    }
+
+    // Initialize Language on Load
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedLang = localStorage.getItem("primora_lang") || "bn";
+      setAppLanguage(savedLang);
+    });
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>অ্যাডমিন ড্যাশবোর্ড — PRIMORA KIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; margin: 0; padding: 0; }
+    body { background: #F1F5F9; color: #1E293B; }
+    
+    .admin-navbar {
+      background: #091A2F;
+      color: #FFF;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 2px solid #F5A623;
+    }
+    .admin-brand {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .admin-link-btn {
+      background: rgba(255,255,255,0.1);
+      color: #FFF;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .admin-link-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .admin-link-logout {
+      background: #EF4444;
+    }
+
+    .container {
+      max-width: 1350px;
+      margin: 25px auto;
+      padding: 0 20px;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .kpi-card {
+      background: #FFF;
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+    }
+    .kpi-val {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0F294A;
+      margin-top: 4px;
+    }
+    .kpi-highlight {
+      color: #10B981;
+    }
+    .kpi-gold {
+      color: #F5A623;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      background: #FFF;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filter-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-select, .filter-input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .filter-btn {
+      background: #0F294A;
+      color: #FFF;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .csv-btn {
+      background: #10B981;
+      color: #FFF;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Orders Table */
+    .table-card {
+      background: #FFF;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      overflow-x: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+      min-width: 1000px;
+    }
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    th {
+      background: #F8FAFC;
+      color: #0F294A;
+      font-weight: 700;
+    }
+    tr:hover {
+      background: #F8FAFC;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .status-Pending { background: #FEF3C7; color: #92400E; }
+    .status-Confirmed { background: #DBEAFE; color: #1E40AF; }
+    .status-Processing { background: #E0E7FF; color: #3730A3; }
+    .status-Shipped { background: #FDE68A; color: #78350F; }
+    .status-Delivered { background: #D1FAE5; color: #065F46; }
+    .status-Cancelled { background: #FEE2E2; color: #991B1B; }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 12px; margin: 16px auto; }
+      .admin-navbar { padding: 12px; }
+      .admin-brand { font-size: 15px; }
+      .filter-form { width: 100%; }
+      .filter-input, .filter-select { flex: 1 1 100%; }
+    }
+    .campus-pill {
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="admin-navbar">
+    <div class="admin-brand">
+      <span>📦 PRIMORA KIT — অ্যাডমিন কমান্ড সেন্টার</span>
+    </div>
+    <div class="admin-links">
+      <a href="/" target="_blank" class="admin-link-btn">🌐 লাইভ সাইট দেখুন</a>
+      <a href="{{ url_for('admin_settings') }}" class="admin-link-btn">🔔 নোটিফিকেশন সেটিংস</a>
+      <a href="{{ url_for('admin_password') }}" class="admin-link-btn">🔑 পাসওয়ার্ড পরিবর্তন</a>
+      <a href="{{ url_for('admin_logout') }}" class="admin-link-btn admin-link-logout">লগআউট</a>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- KPI Overview -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">মোট আয় (বিক্রয়)</div>
+        <div class="kpi-val kpi-highlight">৳{{ "%.0f"|format(stats.total_revenue) }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">সর্বমোট অর্ডার</div>
+        <div class="kpi-val">{{ stats.total_orders }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">🎓 কুষ্টিয়া ও ইবি অর্ডার</div>
+        <div class="kpi-val kpi-gold">{{ stats.kushtia_orders }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">⚠️ অসম্পূর্ণ চেকআউট</div>
+        <div class="kpi-val" style="color:#E11D48;">{{ stats.incomplete }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">অপেক্ষারত (Pending)</div>
+        <div class="kpi-val" style="color:#D97706;">{{ stats.pending }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">কনফার্মড</div>
+        <div class="kpi-val" style="color:#2563EB;">{{ stats.confirmed }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">ডেলিভারিতে (Shipped)</div>
+        <div class="kpi-val" style="color:#7C3AED;">{{ stats.shipped }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">ডেলিভারি সম্পন্ন</div>
+        <div class="kpi-val" style="color:#10B981;">{{ stats.delivered }}</div>
+      </div>
+    </div>
+
+    {% if using_default_password %}
+      <div style="background:#FEE2E2; border:1px solid #EF4444; color:#991B1B; padding:10px 14px; border-radius:10px; margin-bottom:16px; font-size:13px;">
+        🔑 আপনি এখনো ডিফল্ট পাসওয়ার্ড ব্যবহার করছেন। এখনই <a href="{{ url_for('admin_password') }}" style="color:#991B1B; font-weight:700;">পাসওয়ার্ড পরিবর্তন করুন</a>।
+      </div>
+    {% endif %}
+    {% if notify_warning %}
+      <div style="background:#FEF3C7; border:1px solid #F59E0B; color:#92400E; padding:10px 14px; border-radius:10px; margin-bottom:16px; font-size:13px;">
+        ⚠️ {{ notify_warning }} <a href="{{ url_for('admin_settings') }}" style="color:#92400E; font-weight:700;">সেটিংস খুলুন</a>
+      </div>
+    {% endif %}
+
+    <!-- Filter & Export Controls -->
+    <div class="filter-bar">
+      <form method="GET" class="filter-form">
+        <input type="text" name="search" value="{{ filters.search }}" placeholder="অর্ডার আইডি, ফোন বা নাম..." class="filter-input" style="min-width: 220px;">
+
+        <select name="status" class="filter-select">
+          <option value="">সকল স্ট্যাটাস</option>
+          {% for st in valid_statuses %}
+            <option value="{{ st }}" {% if filters.status == st %}selected{% endif %}>{{ st }}</option>
+          {% endfor %}
+        </select>
+
+        <select name="zone" class="filter-select">
+          <option value="">সকল ডেলিভারি জোন</option>
+          <option value="kushtia_iu" {% if filters.zone == 'kushtia_iu' %}selected{% endif %}>🎓 কুষ্টিয়া ও ইবি (ফ্রি)</option>
+          <option value="inside_dhaka" {% if filters.zone == 'inside_dhaka' %}selected{% endif %}>📍 ঢাকা সিটি (৳৬০)</option>
+          <option value="outside_dhaka" {% if filters.zone == 'outside_dhaka' %}selected{% endif %}>🚚 ঢাকার বাইরে (৳১২০)</option>
+        </select>
+
+        <button type="submit" class="filter-btn">ফিল্টার করুন</button>
+        {% if filters.search or filters.status or filters.zone %}
+          <a href="{{ url_for('admin_dashboard') }}" style="font-size: 13px; color: #64748B; text-decoration: none;">রিসেট</a>
+        {% endif %}
+      </form>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button type="button" class="filter-btn" style="background:#7C3AED;" onclick="sendTestNotify(this)">🔔 টেস্ট নোটিফিকেশন</button>
+        <a href="{{ url_for('admin_backup') }}" class="csv-btn" style="background:#0F294A;">💾 ডাটাবেজ ব্যাকআপ</a>
+        <a href="{{ url_for('export_csv') }}" class="csv-btn">📥 কুরিয়ার CSV এক্সপোর্ট</a>
+      </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>অর্ডার নং ও তারিখ</th>
+            <th>গ্রাহকের বিবরণ</th>
+            <th>অর্ডারকৃত পণ্য</th>
+            <th>ডেলিভারি জোন / ক্যাম্পাস</th>
+            <th>ঠিকানা</th>
+            <th>মোট টাকা</th>
+            <th>পেমেন্ট</th>
+            <th>বর্তমান স্ট্যাটাস</th>
+            <th>অ্যাকশন</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for o in orders %}
+            <tr id="order_row_{{ o.id }}">
+              <td>
+                <strong style="color:#0F294A;">{{ o.order_number }}</strong>
+                <div style="font-size: 11px; color: #64748B;">{{ o.created_at|bd_time }}</div>
+              </td>
+              <td>
+                <strong>{{ o.customer_name }}</strong>
+                <div style="font-size: 12px; color: #2563EB;">📞 {{ o.phone }}</div>
+                {% if o.alternative_phone %}
+                  <div style="font-size: 11px; color: #64748B;">বিকল্প: {{ o.alternative_phone }}</div>
+                {% endif %}
+              </td>
+              <td style="font-size: 12px; color: #334155;">
+                {% for it in o.line_items %}
+                  <div>{{ it.item_name }} <strong>×{{ it.quantity }}</strong></div>
+                {% else %}
+                  <span style="color:#94A3B8;">—</span>
+                {% endfor %}
+              </td>
+              <td>
+                {% if o.delivery_zone == 'kushtia_iu' %}
+                  <span class="campus-pill">🎓 কুষ্টিয়া ও ইবি (৳০)</span>
+                  {% if o.campus_details %}
+                    <div style="font-size: 11px; color:#047857; font-weight:600; margin-top:2px;">{{ o.campus_details }}</div>
+                  {% endif %}
+                {% elif o.delivery_zone == 'inside_dhaka' %}
+                  <span>ঢাকা সিটি (৳৬০)</span>
+                {% else %}
+                  <span>ঢাকার বাইরে (৳১২০)</span>
+                {% endif %}
+              </td>
+              <td style="max-width: 200px; font-size: 12px; color: #475569;">
+                {{ o.address }}
+              </td>
+              <td>
+                <strong style="font-size: 14px; color: #0F294A;">৳{{ "%.0f"|format(o.total_amount) }}</strong>
+                <div style="font-size: 11px; color: #64748B;">চার্জ: ৳{{ "%.0f"|format(o.delivery_fee) }}</div>
+              </td>
+              <td>
+                <strong>{{ o.payment_method | upper }}</strong>
+                {% if o.trx_id %}
+                  <div style="font-size: 11px; color: #E11D48;">Trx: {{ o.trx_id }}</div>
+                {% endif %}
+              </td>
+              <td>
+                <select onchange="updateOrderStatus({{ o.id }}, this.value)" style="padding: 5px 8px; border-radius: 6px; font-size: 12px; font-weight: 700;">
+                  {% for st in valid_statuses %}
+                    <option value="{{ st }}" {% if o.status == st %}selected{% endif %}>{{ st }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              <td>
+                <a href="{{ url_for('order_invoice', order_number=o.order_number) }}" target="_blank" style="color: #0F294A; font-weight: bold; font-size: 12px; text-decoration: underline;">
+                  🖨️ ইনভয়েস
+                </a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="9" style="text-align: center; padding: 40px; color: #64748B;">
+                কোনো অর্ডার খুঁজে পাওয়া যায়নি।
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- Incomplete checkouts -->
+    <h2 style="font-size:17px; color:#0F294A; margin:28px 0 10px;">⚠️ অসম্পূর্ণ অর্ডার — যারা ফর্ম শুরু করেছেন কিন্তু অর্ডার করেননি</h2>
+    <div class="table-card">
+      <table style="min-width: 900px;">
+        <thead>
+          <tr>
+            <th>সময় (BD)</th>
+            <th>নাম</th>
+            <th>মোবাইল</th>
+            <th>ঠিকানা / এলাকা</th>
+            <th>কার্টের পণ্য</th>
+            <th>অ্যাকশন</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in drafts %}
+            <tr id="draft_row_{{ d.id }}">
+              <td style="white-space:nowrap;">{{ d.updated_at|bd_time }}</td>
+              <td><strong>{{ d.customer_name or '—' }}</strong></td>
+              <td>
+                {% if d.phone %}<span style="color:#2563EB;">📞 {{ d.phone }}</span>{% else %}—{% endif %}
+                {% if d.alternative_phone %}<div style="font-size:11px; color:#64748B;">বিকল্প: {{ d.alternative_phone }}</div>{% endif %}
+              </td>
+              <td style="max-width:220px; font-size:12px; color:#475569;">
+                {{ d.address or '—' }}{% if d.district %}, {{ d.district }}{% endif %}
+                <div style="font-size:11px; color:#94A3B8;">
+                  {% if d.delivery_zone == 'kushtia_iu' %}🎓 কুষ্টিয়া ও ইবি{% elif d.delivery_zone == 'inside_dhaka' %}📍 ঢাকা সিটি{% elif d.delivery_zone == 'outside_dhaka' %}🚚 ঢাকার বাইরে{% endif %}
+                </div>
+              </td>
+              <td style="font-size:12px; color:#334155;">
+                {% for it in d['items'] %}
+                  <div>{{ it.name }} <strong>×{{ it.qty }}</strong></div>
+                {% else %}
+                  <span style="color:#94A3B8;">—</span>
+                {% endfor %}
+              </td>
+              <td style="white-space:nowrap;">
+                {% if d.wa_ok %}
+                  <a href="https://wa.me/88{{ d.phone }}" target="_blank" rel="noopener" style="color:#16A34A; font-weight:bold; font-size:12px; text-decoration:underline;">💬 WhatsApp</a>
+                  &nbsp;
+                {% endif %}
+                <a href="javascript:void(0)" onclick="deleteDraft({{ d.id }})" style="color:#EF4444; font-size:12px; text-decoration:underline;">🗑 মুছুন</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="6" style="text-align:center; padding:30px; color:#64748B;">এখন কোনো অসম্পূর্ণ অর্ডার নেই।</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    async function sendTestNotify(btn) {
+      const old = btn.textContent;
+      btn.disabled = true; btn.textContent = '⏳ পাঠানো হচ্ছে...';
+      try {
+        const res = await fetch('/admin/api/test-notify', { method: 'POST', headers: { 'X-Requested-With': 'fetch' } });
+        const data = await res.json();
+        alert(data.message);
+      } catch (e) {
+        alert('সার্ভার এরর, পুনরায় চেষ্টা করুন।');
+      }
+      btn.disabled = false; btn.textContent = old;
+    }
+
+    async function deleteDraft(id) {
+      if (!confirm('এই অসম্পূর্ণ এন্ট্রি মুছে ফেলবেন?')) return;
+      try {
+        const res = await fetch('/admin/api/drafts/' + id + '/delete', { method: 'POST', headers: { 'X-Requested-With': 'fetch' } });
+        if (res.ok) {
+          const row = document.getElementById('draft_row_' + id);
+          if (row) row.remove();
+        }
+      } catch (e) { alert('সার্ভার এরর, পুনরায় চেষ্টা করুন।'); }
+    }
+
+    async function updateOrderStatus(orderId, newStatus) {
+      try {
+        const res = await fetch(`/admin/api/orders/${orderId}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'fetch' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          console.log(data.message);
+        } else {
+          alert('আপডেট ব্যর্থ: ' + data.message);
+        }
+      } catch (e) {
+        alert('সার্ভার এরর, পুনরায় চেষ্টা করুন।');
+      }
+    }
+  </script>
+
+</body>
+</html>

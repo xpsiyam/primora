@@ -1,0 +1,472 @@
+{% extends "base.html" %}
+
+{% block title %}আপনার কার্ট ও চেকআউট — PRIMORA KIT{% endblock %}
+{% block body_class %}page-cart{% endblock %}
+
+{% block content %}
+<section class="checkout-section cart-page">
+
+  <div class="cart-page-head">
+    <h1 data-bn="🛒 আপনার কার্ট" data-en="🛒 Your Cart">🛒 আপনার কার্ট</h1>
+    <a href="{{ url_for('index') }}#combos-section" class="cart-back-link" data-bn="← আরও কম্বো দেখুন" data-en="← Add more combos">← আরও কম্বো দেখুন</a>
+  </div>
+
+  <!-- Loading -->
+  <div id="cartLoading" class="cart-empty">
+    <div class="cart-empty-icon cart-spin">⏳</div>
+    <p data-bn="কার্ট লোড হচ্ছে..." data-en="Loading your cart...">কার্ট লোড হচ্ছে...</p>
+  </div>
+
+  <!-- Empty -->
+  <div id="cartEmpty" class="cart-empty" hidden>
+    <div class="cart-empty-icon">🛒</div>
+    <h2 data-bn="আপনার কার্ট এখন খালি" data-en="Your cart is empty">আপনার কার্ট এখন খালি</h2>
+    <p data-bn="পছন্দের কম্বো কার্টে যোগ করুন, তারপর একসাথে চেকআউট করুন।" data-en="Add your favourite combos, then checkout everything together.">পছন্দের কম্বো কার্টে যোগ করুন, তারপর একসাথে চেকআউট করুন।</p>
+    <a href="{{ url_for('index') }}#combos-section" class="final-order-btn cart-empty-btn">
+      <span data-bn="📦 কম্বো দেখুন" data-en="📦 Browse combos">📦 কম্বো দেখুন</span>
+    </a>
+  </div>
+
+  <!-- Cart + Checkout -->
+  <div id="cartLayout" class="cart-layout" hidden>
+
+    <!-- LEFT: cart items -->
+    <div class="cart-items-col">
+      <div class="checkout-card">
+        <div class="checkout-header">
+          <h2 data-bn="আপনার নির্বাচিত পণ্য" data-en="Your selected items">আপনার নির্বাচিত পণ্য</h2>
+          <p id="itemsCount"></p>
+        </div>
+        <div class="cart-lines" id="cartLines"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: checkout form -->
+    <form id="checkoutForm" class="cart-form-col" novalidate>
+      <div class="checkout-card">
+        <div class="checkout-header">
+          <h2 data-bn="📦 ডেলিভারি ও অর্ডার তথ্য" data-en="📦 Delivery & Order Details">📦 ডেলিভারি ও অর্ডার তথ্য</h2>
+          <p data-bn="সব পণ্য একসাথে একটি অর্ডারে যাবে — ডেলিভারি চার্জ একবারই।" data-en="All items go in ONE order — delivery is charged only once.">সব পণ্য একসাথে একটি অর্ডারে যাবে — ডেলিভারি চার্জ একবারই।</p>
+        </div>
+
+        <div class="checkout-body">
+
+          <!-- 1. Zone -->
+          <div class="step-box" id="zoneBox">
+            <div class="step-label"><span class="step-badge">১</span> <span data-bn="ডেলিভারি এলাকা বেছে নিন" data-en="Choose delivery area">ডেলিভারি এলাকা বেছে নিন</span></div>
+            <div class="zone-picker-grid">
+              <label class="zone-option" data-zone="kushtia_iu">
+                <input type="radio" name="delivery_zone" value="kushtia_iu" class="sr-only">
+                <span class="zone-header-line" data-bn="🎓 কুষ্টিয়া শহর ও ইবি (IU)" data-en="🎓 Kushtia city & IU">🎓 কুষ্টিয়া শহর ও ইবি (IU)</span>
+                <span class="zone-fee-tag zone-free-tag" data-bn="ফ্রি ডেলিভারি (৳০)" data-en="Free delivery (৳0)">ফ্রি ডেলিভারি (৳০)</span>
+              </label>
+              <label class="zone-option" data-zone="inside_dhaka">
+                <input type="radio" name="delivery_zone" value="inside_dhaka" class="sr-only">
+                <span class="zone-header-line" data-bn="📍 ঢাকা সিটির ভেতরে" data-en="📍 Inside Dhaka city">📍 ঢাকা সিটির ভেতরে</span>
+                <span class="zone-fee-tag">{{ fees.inside_dhaka|bn_money }}</span>
+              </label>
+              <label class="zone-option" data-zone="outside_dhaka">
+                <input type="radio" name="delivery_zone" value="outside_dhaka" class="sr-only">
+                <span class="zone-header-line" data-bn="🚚 ঢাকার বাইরে (সারা বাংলাদেশ)" data-en="🚚 Outside Dhaka (nationwide)">🚚 ঢাকার বাইরে (সারা বাংলাদেশ)</span>
+                <span class="zone-fee-tag">{{ fees.outside_dhaka|bn_money }}</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 2. Customer -->
+          <div class="step-box">
+            <div class="step-label"><span class="step-badge">২</span> <span data-bn="আপনার তথ্য" data-en="Your information">আপনার তথ্য</span></div>
+
+            <div class="checkout-input-row two-col">
+              <div class="checkout-input-group">
+                <label for="f_name" data-bn="পূর্ণ নাম *" data-en="Full name *">পূর্ণ নাম *</label>
+                <input type="text" id="f_name" maxlength="100" autocomplete="name" placeholder="আপনার নাম লিখুন" data-bn-placeholder="আপনার নাম লিখুন" data-en-placeholder="Enter your name">
+              </div>
+              <div class="checkout-input-group">
+                <label for="f_phone" data-bn="মোবাইল নম্বর (১১ ডিজিট) *" data-en="Mobile (11 digits) *">মোবাইল নম্বর (১১ ডিজিট) *</label>
+                <input type="tel" id="f_phone" maxlength="14" inputmode="numeric" autocomplete="tel" placeholder="01XXXXXXXXX">
+              </div>
+            </div>
+
+            <div class="checkout-input-row">
+              <div class="checkout-input-group">
+                <label for="f_alt_phone" data-bn="বিকল্প মোবাইল নম্বর (ঐচ্ছিক)" data-en="Alternative mobile (optional)">বিকল্প মোবাইল নম্বর (ঐচ্ছিক)</label>
+                <input type="tel" id="f_alt_phone" maxlength="14" inputmode="numeric" placeholder="01XXXXXXXXX">
+              </div>
+            </div>
+
+            <div class="checkout-input-row">
+              <div class="checkout-input-group">
+                <label for="f_address" id="lblAddress">হল/ডিপার্টমেন্ট বা এলাকা *</label>
+                <textarea id="f_address" rows="2" maxlength="300"></textarea>
+              </div>
+            </div>
+
+            <div class="checkout-input-row" id="districtRow" hidden>
+              <div class="checkout-input-group">
+                <label for="f_district" data-bn="জেলা *" data-en="District *">জেলা *</label>
+                <input type="text" id="f_district" maxlength="60" placeholder="যেমন: রাজশাহী" data-bn-placeholder="যেমন: রাজশাহী" data-en-placeholder="e.g. Rajshahi">
+              </div>
+            </div>
+
+            <div class="checkout-input-row">
+              <div class="checkout-input-group">
+                <label for="f_notes" data-bn="অর্ডার নোট (ঐচ্ছিক)" data-en="Order note (optional)">অর্ডার নোট (ঐচ্ছিক)</label>
+                <textarea id="f_notes" rows="2" maxlength="500" placeholder="কোনো বিশেষ নির্দেশনা থাকলে লিখুন" data-bn-placeholder="কোনো বিশেষ নির্দেশনা থাকলে লিখুন" data-en-placeholder="Any special instruction"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Payment -->
+          <div class="step-box">
+            <div class="step-label"><span class="step-badge">৩</span> <span data-bn="পেমেন্ট পদ্ধতি" data-en="Payment method">পেমেন্ট পদ্ধতি</span></div>
+            <div class="zone-picker-grid">
+              <label class="zone-option selected" data-pay="cod">
+                <input type="radio" name="payment_method" value="cod" class="sr-only" checked>
+                <span class="zone-header-line" data-bn="💵 ক্যাশ অন ডেলিভারি" data-en="💵 Cash on Delivery">💵 ক্যাশ অন ডেলিভারি</span>
+                <span class="zone-fee-tag zone-free-tag pay-sub" data-bn="হাতে পেয়ে টাকা দিন" data-en="Pay when you receive">হাতে পেয়ে টাকা দিন</span>
+              </label>
+              <label class="zone-option" data-pay="bkash">
+                <input type="radio" name="payment_method" value="bkash" class="sr-only">
+                <span class="zone-header-line">📲 bKash</span>
+                <span class="pay-sub" data-bn="সেন্ড মানি করে TrxID দিন" data-en="Send money & enter TrxID">সেন্ড মানি করে TrxID দিন</span>
+              </label>
+              <label class="zone-option" data-pay="nagad">
+                <input type="radio" name="payment_method" value="nagad" class="sr-only">
+                <span class="zone-header-line">📲 Nagad</span>
+                <span class="pay-sub" data-bn="সেন্ড মানি করে TrxID দিন" data-en="Send money & enter TrxID">সেন্ড মানি করে TrxID দিন</span>
+              </label>
+            </div>
+
+            <div class="mfs-copy-card" id="mfsCard" hidden>
+              <div class="mfs-number-row">
+                <span class="mfs-number-label"><span id="mfsLabel">bKash</span> <span data-bn="নম্বর (Send Money):" data-en="number (Send Money):">নম্বর (Send Money):</span></span>
+                <span class="mfs-number-val" id="mfsNumber"></span>
+                <button type="button" class="copy-number-btn" id="copyBtn">📋 কপি</button>
+              </div>
+              <ol class="mfs-steps-list">
+                <li data-bn="আপনার অ্যাপ থেকে উপরের নম্বরে <b>Send Money</b> করুন।" data-en="Open your app and <b>Send Money</b> to the number above.">আপনার অ্যাপ থেকে উপরের নম্বরে <b>Send Money</b> করুন।</li>
+                <li><span data-bn="পরিমাণ:" data-en="Amount:">পরিমাণ:</span> <b id="mfsAmount"></b></li>
+                <li data-bn="পেমেন্ট শেষে পাওয়া <b>Transaction ID (TrxID)</b> নিচের ঘরে লিখুন।" data-en="Enter the <b>Transaction ID (TrxID)</b> you receive below.">পেমেন্ট শেষে পাওয়া <b>Transaction ID (TrxID)</b> নিচের ঘরে লিখুন।</li>
+              </ol>
+              <div class="checkout-input-group">
+                <label for="f_trx" data-bn="ট্রানজেকশন আইডি (TrxID) *" data-en="Transaction ID (TrxID) *">ট্রানজেকশন আইডি (TrxID) *</label>
+                <input type="text" id="f_trx" maxlength="40" autocomplete="off" placeholder="যেমন: 9A7B5C3D2E" data-bn-placeholder="যেমন: 9A7B5C3D2E" data-en-placeholder="e.g. 9A7B5C3D2E">
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="summary-box">
+            <div class="summary-row"><span data-bn="আইটেম সাবটোটাল" data-en="Items subtotal">আইটেম সাবটোটাল</span> <strong id="sumSubtotal"></strong></div>
+            <div class="summary-row" id="sumSaveRow" hidden><span data-bn="🎉 আপনার সাশ্রয়" data-en="🎉 You save">🎉 আপনার সাশ্রয়</span> <strong class="text-green" id="sumSave"></strong></div>
+            <div class="summary-row"><span data-bn="ডেলিভারি চার্জ" data-en="Delivery charge">ডেলিভারি চার্জ</span> <strong id="sumDelivery"></strong></div>
+            <div class="summary-row total"><span data-bn="সর্বমোট প্রদেয়" data-en="Total payable">সর্বমোট প্রদেয়</span> <span id="sumTotal"></span></div>
+          </div>
+
+          <div class="cart-form-error" id="formError" role="alert" hidden></div>
+
+          <p style="font-size:11.5px; color:#64748B; text-align:center; margin: 0 0 8px; line-height:1.5;"
+             data-bn="ℹ️ অর্ডার সম্পন্ন না করলেও আপনার দেওয়া তথ্য আমাদের কাছে সংরক্ষিত হতে পারে, যাতে আমরা যোগাযোগ করে সাহায্য করতে পারি।"
+             data-en="ℹ️ Even if you do not finish, the details you entered may be saved so we can contact you and help.">ℹ️ অর্ডার সম্পন্ন না করলেও আপনার দেওয়া তথ্য আমাদের কাছে সংরক্ষিত হতে পারে, যাতে আমরা যোগাযোগ করে সাহায্য করতে পারি।</p>
+          <button type="submit" class="final-order-btn" id="finalBtn">
+            <span data-bn="✅ অর্ডার কনফার্ম করুন" data-en="✅ Confirm Order">✅ অর্ডার কনফার্ম করুন</span>
+            <span id="finalBtnTotal"></span>
+          </button>
+
+          <div class="trust-badges-row">
+            <span class="trust-badge-item" data-bn="🤝 পার্সেল খুলে চেক করে টাকা দিন" data-en="🤝 Inspect the parcel before paying">🤝 পার্সেল খুলে চেক করে টাকা দিন</span>
+            <span class="trust-badge-item" data-bn="🔒 নিরাপদ অর্ডার" data-en="🔒 Secure order">🔒 নিরাপদ অর্ডার</span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  (function () {
+    const FEES = {{ fees|tojson }};
+    const MFS = { bkash: {{ (settings.bkash_number or '')|tojson }}, nagad: {{ (settings.nagad_number or '')|tojson }} };
+    const PHONE_RE = /^01[3-9]\d{8}$/;
+
+    const $ = id => document.getElementById(id);
+    const t = (bn, en) => (currentLang() === "en" ? en : bn);
+    const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    let combos = {};
+    let loaded = false;
+    let zone = "";
+    let pay = "cod";
+    let finalBtnHtml = "";
+
+    // ---------- load combo data (names & prices come from the server) ----------
+    async function loadCombos() {
+      try {
+        const res = await fetch("/api/combos", { cache: "no-store" });
+        const data = await res.json();
+        (data.combos || []).forEach(c => { combos[String(c.id)] = c; });
+        loaded = true;
+        render();
+      } catch (e) {
+        $("cartLoading").innerHTML =
+          '<div class="cart-empty-icon">⚠️</div><p>' + t("কার্ট লোড করা যায়নি। ইন্টারনেট চেক করে আবার চেষ্টা করুন।", "Could not load the cart. Check your connection and retry.") +
+          '</p><button type="button" class="final-order-btn cart-empty-btn" onclick="location.reload()">' + t("🔄 আবার চেষ্টা করুন", "🔄 Retry") + "</button>";
+      }
+    }
+
+    function validLines() {
+      return PrimoraCart.load().filter(l => combos[l.id]);
+    }
+
+    // ---------- render cart lines ----------
+    function render() {
+      if (!loaded) return;
+      const all = PrimoraCart.load();
+      const lines = all.filter(l => combos[l.id]);
+      if (lines.length !== all.length) PrimoraCart.replace(lines); // drop products that no longer exist
+
+      $("cartLoading").hidden = true;
+      if (!lines.length) {
+        $("cartEmpty").hidden = false;
+        $("cartLayout").hidden = true;
+        return;
+      }
+      $("cartEmpty").hidden = true;
+      $("cartLayout").hidden = false;
+
+      const en = currentLang() === "en";
+      $("cartLines").innerHTML = lines.map(l => {
+        const c = combos[l.id];
+        const name = en ? (c.name || c.bn_name) : (c.bn_name || c.name);
+        const inc = (c.items_breakdown || []).map(i =>
+          "<li>" + esc(i.icon || "✏️") + " " + esc(en ? (i.en_name || i.name) : i.name) + " ×" + fmtNum(i.qty) + "</li>").join("");
+        return '' +
+          '<div class="cart-line" data-id="' + esc(l.id) + '">' +
+            '<div class="cart-line-info">' +
+              '<div class="cart-line-name">' + esc(name) + '</div>' +
+              '<div class="cart-line-unit">' + fmtMoney(c.price) + ' <s>' + fmtMoney(c.original_price) + '</s>' +
+                (c.discount_text ? ' <span class="cart-line-save">' + esc(en ? (c.en_discount || c.discount_text) : c.discount_text) + '</span>' : '') + '</div>' +
+              (inc ? '<details class="cart-line-details"><summary>' + t("কী কী আছে দেখুন", "See what is inside") + '</summary><ul>' + inc + '</ul></details>' : '') +
+            '</div>' +
+            '<div class="cart-line-controls">' +
+              '<div class="qty-stepper">' +
+                '<button type="button" data-act="dec" aria-label="' + t("কমান", "Decrease") + '">−</button>' +
+                '<span class="qty-val">' + fmtNum(l.qty) + '</span>' +
+                '<button type="button" data-act="inc" aria-label="' + t("বাড়ান", "Increase") + '">+</button>' +
+              '</div>' +
+              '<div class="cart-line-total">' + fmtMoney(c.price * l.qty) + '</div>' +
+              '<button type="button" class="cart-line-remove" data-act="rm" aria-label="' + t("মুছুন", "Remove") + '">🗑</button>' +
+            '</div>' +
+          '</div>';
+      }).join("");
+
+      const n = lines.reduce((s, l) => s + l.qty, 0);
+      $("itemsCount").textContent = t(fmtNum(n) + "টি কম্বো কার্টে আছে", fmtNum(n) + " combo(s) in cart");
+      updateTotals();
+    }
+
+    // ---------- totals ----------
+    function updateTotals() {
+      const lines = validLines();
+      const sub = lines.reduce((s, l) => s + combos[l.id].price * l.qty, 0);
+      const save = lines.reduce((s, l) => s + Math.max(0, (combos[l.id].original_price || 0) - combos[l.id].price) * l.qty, 0);
+      const fee = zone ? FEES[zone] : null;
+      const total = sub + (fee || 0);
+
+      $("sumSubtotal").textContent = fmtMoney(sub);
+      $("sumSaveRow").hidden = save <= 0;
+      $("sumSave").textContent = fmtMoney(save);
+      if (!zone) {
+        $("sumDelivery").textContent = t("এলাকা নির্বাচন করুন", "Select area");
+      } else if (fee === 0) {
+        $("sumDelivery").innerHTML = '<span class="text-green">' + t("৳০ (ফ্রি ডেলিভারি)", "৳0 (Free delivery)") + "</span>";
+      } else {
+        $("sumDelivery").textContent = fmtMoney(fee);
+      }
+      $("sumTotal").textContent = fmtMoney(total);
+      $("finalBtnTotal").textContent = "(" + fmtMoney(total) + ")";
+      $("mfsAmount").textContent = fmtMoney(total);
+    }
+
+    // ---------- cart line buttons ----------
+    $("cartLines").addEventListener("click", e => {
+      const btn = e.target.closest("button[data-act]");
+      if (!btn) return;
+      const lineEl = btn.closest(".cart-line");
+      const id = lineEl.dataset.id;
+      const line = PrimoraCart.load().find(l => l.id === id);
+      if (!line) return;
+      const act = btn.dataset.act;
+      if (act === "inc") { PrimoraCart.setQty(id, line.qty + 1); render(); }
+      else if (act === "dec") { PrimoraCart.setQty(id, line.qty - 1); render(); }
+      else if (act === "rm") {
+        lineEl.classList.add("removing");
+        setTimeout(() => { PrimoraCart.remove(id); render(); }, 260);
+      }
+    });
+
+    // ---------- zone & payment pickers ----------
+    function applyZoneUI() {
+      const label = $("lblAddress");
+      const addr = $("f_address");
+      if (zone === "kushtia_iu") {
+        label.textContent = t("হল/ডিপার্টমেন্ট বা কুষ্টিয়া এলাকা *", "Hall/Dept or Kushtia location *");
+        addr.placeholder = t("যেমন: সাদ্দাম হল ২০৪ নং রুম / সিএসই", "e.g. Saddam Hall room 204 / CSE Dept");
+      } else {
+        label.textContent = t("বিস্তারিত ঠিকানা (বাসা/রোড/থানা) *", "Full address (house/road/thana) *");
+        addr.placeholder = t("যেমন: বাসা ১২, রোড ৫, মিরপুর-১০", "e.g. House 12, Road 5, Mirpur-10");
+      }
+      $("districtRow").hidden = !(zone && zone !== "kushtia_iu");
+    }
+
+    function applyPayUI() {
+      const isMfs = pay === "bkash" || pay === "nagad";
+      $("mfsCard").hidden = !isMfs;
+      if (isMfs) {
+        $("mfsLabel").textContent = pay === "bkash" ? "bKash" : "Nagad";
+        $("mfsNumber").textContent = MFS[pay] || "";
+      }
+    }
+
+    document.querySelectorAll("[data-zone]").forEach(el => {
+      el.addEventListener("change", () => {
+        zone = el.dataset.zone;
+        document.querySelectorAll("[data-zone]").forEach(o => o.classList.toggle("selected", o === el));
+        applyZoneUI();
+        updateTotals();
+      });
+    });
+    document.querySelectorAll("[data-pay]").forEach(el => {
+      el.addEventListener("change", () => {
+        pay = el.dataset.pay;
+        document.querySelectorAll("[data-pay]").forEach(o => o.classList.toggle("selected", o === el));
+        applyPayUI();
+      });
+    });
+
+    $("copyBtn").addEventListener("click", async function () {
+      const num = $("mfsNumber").textContent.trim();
+      try { await navigator.clipboard.writeText(num); }
+      catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = num; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch (_) {}
+        ta.remove();
+      }
+      this.classList.add("copied");
+      this.textContent = t("✓ কপি হয়েছে", "✓ Copied");
+      setTimeout(() => { this.classList.remove("copied"); this.textContent = t("📋 কপি", "📋 Copy"); }, 1600);
+    });
+
+    // ---------- submit ----------
+    function cleanPhone(v) {
+      v = (v || "").replace(/[\s-]/g, "");
+      if (v.startsWith("+88")) v = v.slice(3);
+      else if (v.startsWith("88")) v = v.slice(2);
+      return v;
+    }
+    function showError(msg, scrollToId) {
+      const box = $("formError");
+      box.textContent = msg;
+      box.hidden = false;
+      const target = scrollToId ? $(scrollToId) : box;
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (scrollToId && target.focus) { try { target.focus({ preventScroll: true }); } catch (_) {} }
+    }
+
+    $("checkoutForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      $("formError").hidden = true;
+
+      const lines = validLines();
+      if (!lines.length) return showError(t("আপনার কার্ট খালি।", "Your cart is empty."));
+      if (!zone) return showError(t("অনুগ্রহ করে ডেলিভারি এলাকা নির্বাচন করুন।", "Please choose your delivery area."), "zoneBox");
+
+      const name = $("f_name").value.trim();
+      const phone = cleanPhone($("f_phone").value);
+      const alt = cleanPhone($("f_alt_phone").value);
+      const addr = $("f_address").value.trim();
+      const district = $("f_district").value.trim();
+      const trx = $("f_trx").value.trim();
+
+      if (name.length < 2) return showError(t("অনুগ্রহ করে আপনার পূর্ণ নাম লিখুন।", "Please enter your full name."), "f_name");
+      if (!PHONE_RE.test(phone)) return showError(t("সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন (01XXXXXXXXX)।", "Enter a valid 11-digit mobile number (01XXXXXXXXX)."), "f_phone");
+      if (alt && !PHONE_RE.test(alt)) return showError(t("বিকল্প নম্বরটি সঠিক নয়। ঘরটি খালি রাখতে পারেন।", "Alternative number is invalid. You may leave it empty."), "f_alt_phone");
+      if (addr.length < 3) return showError(t("ঠিকানা/হলের নাম সর্বনিম্ন ৩ অক্ষর লিখুন।", "Enter your address / hall name (min 3 characters)."), "f_address");
+      if (zone !== "kushtia_iu" && district.length < 2) return showError(t("আপনার জেলার নাম লিখুন।", "Please enter your district."), "f_district");
+      if ((pay === "bkash" || pay === "nagad") && trx.length < 4) return showError(t("পেমেন্টের TrxID লিখুন।", "Please enter the payment TrxID."), "f_trx");
+
+      const payload = {
+        customer_name: name,
+        phone: phone,
+        alternative_phone: alt,
+        delivery_zone: zone,
+        address: addr,
+        campus_details: zone === "kushtia_iu" ? addr : "",
+        district: zone === "kushtia_iu" ? "" : district,
+        payment_method: pay,
+        trx_id: (pay === "cod" ? "" : trx),
+        order_notes: $("f_notes").value.trim(),
+        items: lines.map(l => ({ type: "combo", id: l.id, qty: l.qty })),
+        draft_id: PrimoraDraft.id()
+      };
+
+      const btn = $("finalBtn");
+      finalBtnHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = "⏳ " + t("অর্ডার হচ্ছে...", "Placing order...");
+
+      try {
+        const res = await fetch("/api/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok && data.status === "success") {
+          PrimoraDraft.done();
+          PrimoraCart.clear();
+          window.location.href = data.redirect_url;
+          return;
+        }
+        showError(data.message || t("অর্ডার দেওয়া সম্ভব হয়নি। আবার চেষ্টা করুন।", "Could not place the order. Please try again."));
+      } catch (err) {
+        showError(t("সার্ভার সংযোগ ব্যর্থ। ইন্টারনেট চেক করে আবার চেষ্টা করুন।", "Connection failed. Check your internet and try again."));
+      }
+      btn.disabled = false;
+      btn.innerHTML = finalBtnHtml;
+    });
+
+    // language switch / other tab changed the cart
+    window.onLanguageChanged = function () {
+      applyZoneUI();
+      $("copyBtn").textContent = t("📋 কপি", "📋 Copy");
+      render();
+      updateTotals();
+    };
+    window.onCartExternalChange = render;
+
+    // remember what the customer has typed (for follow-up if they leave without ordering)
+    PrimoraDraft.attach($("checkoutForm"), () => ({
+      source: "cart",
+      customer_name: $("f_name").value.trim(),
+      phone: cleanPhone($("f_phone").value),
+      alternative_phone: cleanPhone($("f_alt_phone").value),
+      address: $("f_address").value.trim(),
+      district: $("f_district").value.trim(),
+      delivery_zone: zone,
+      payment_method: pay,
+      order_notes: $("f_notes").value.trim(),
+      items: PrimoraCart.load().map(l => ({ id: l.id, qty: l.qty }))
+    }));
+
+    applyZoneUI();
+    applyPayUI();
+    $("copyBtn").textContent = t("📋 কপি", "📋 Copy");
+    loadCombos();
+  })();
+</script>
+{% endblock %}
