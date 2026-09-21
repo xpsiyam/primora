@@ -696,12 +696,20 @@ def admin_login():
     error = None
     if request.method == "POST":
         ip = request.remote_addr or "unknown"
+        now = time.time()
 
-        if _login_locked(ip):
-            return render_template(
-                "admin/login.html",
-                error="অনেকবার ভুল চেষ্টা করা হয়েছে। ১০ মিনিট পর আবার চেষ্টা করুন।"
-            ), 429
+        # Check if the IP is locked out for 24 hours
+        if ip in _login_fails:
+            lock_data = _login_fails[ip]
+            if isinstance(lock_data, dict) and lock_data.get("locked_until"):
+                if now < lock_data["locked_until"]:
+                    remaining_hours = int((lock_data["locked_until"] - now) / 3600) + 1
+                    return render_template(
+                        "admin/login.html",
+                        error=f"Too many failed login attempts. Account locked for 24 hours. Please try again in about {remaining_hours} hours."
+                    ), 429
+                else:
+                    _login_fails.pop(ip, None)
 
         username = (request.form.get("username") or "").strip()
         password = (request.form.get("password") or "").strip()
@@ -717,8 +725,23 @@ def admin_login():
             session.permanent = True
             return redirect(_safe_next(request.args.get("next")) or url_for("admin_dashboard"))
 
-        _login_fails.setdefault(ip, []).append(time.time())
-        error = "ভুল ইউজারনেম বা পাসওয়ার্ড!"
+        # Manage failed login attempts
+        if ip not in _login_fails or not isinstance(_login_fails[ip], dict):
+            _login_fails[ip] = {"count": 0, "locked_until": None}
+        
+        _login_fails[ip]["count"] += 1
+        current_count = _login_fails[ip]["count"]
+        remaining_tries = 5 - current_count
+
+        if current_count >= 5:
+            # Lock for 24 hours (86400 seconds) on 5th failure
+            _login_fails[ip]["locked_until"] = now + 86400
+            error = "Too many failed attempts. Your account has been locked for 24 hours."
+        elif current_count == 2:
+            # Warning message after 2 failed attempts
+            error = f"Last try! {remaining_tries} tries left"
+        else:
+            error = "Invalid username or password!"
 
     return render_template("admin/login.html", error=error)
 
